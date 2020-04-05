@@ -42,9 +42,14 @@ namespace Calculator
         public Expression Parse(string input)
         {
             input = input.Replace(" ", "");
+            bool isNum1Found = false;
             for (int i = 0; i < input.Length; i++)
             {
-                if (!Char.IsDigit(input[i]))
+                if (Char.IsDigit(input[i]))
+                {
+                    isNum1Found = true;
+                }
+                else if (isNum1Found)
                 {
                     try
                     {
@@ -54,7 +59,7 @@ namespace Calculator
                     }
                     catch (FormatException)
                     {
-                        throw new ParsingException("Expression not found");
+                        throw new ParsingException("Cannot parse the expression");
                     }
                 }
             }
@@ -74,7 +79,6 @@ namespace Calculator
                     return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
                 case '/':
                     return ArithmeticUnit.Div(exp.Num1, exp.Num2);
- 
                 default:
                     throw new ParsingException("Operation does not exist");
             }

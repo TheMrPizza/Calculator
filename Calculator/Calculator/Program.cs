@@ -1,6 +1,4 @@
-﻿using System;
-using Calculator;
-using Calculator.IO;
+﻿using Calculator.IO;
 
 namespace Calculator
 {
