@@ -58,7 +58,7 @@ namespace Calculator
                 case '*':
                     return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
                 case '/':
-                    return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
+                    return ArithmeticUnit.Div(exp.Num1, exp.Num2);
             }
 
             return 0;
