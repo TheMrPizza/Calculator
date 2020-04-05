@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Calculator.Exceptions;
 
 namespace Calculator
 {
@@ -23,6 +21,11 @@ namespace Calculator
 
         public double Div(double num1, double num2)
         {
+            if (num2 == 0)
+            {
+                throw new ArithmeticExcpetion("Cannot divide by zero");
+            }
+            
             return num1 / num2;
         }
     }

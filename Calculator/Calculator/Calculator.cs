@@ -1,5 +1,6 @@
 ﻿using System;
 using Calculator.IO;
+using Calculator.Exceptions;
 
 namespace Calculator
 {
@@ -20,15 +21,22 @@ namespace Calculator
             while(true)
             {
                 string input = StreamIO.Read();
-                string result = Solve(input);
-                StreamIO.Write(result);
+                Solve(input);
             }
         }
 
-        public string Solve(string input)
+        public void Solve(string input)
         {
-            Expression exp = Parse(input);
-            return Calc(exp).ToString();
+            try
+            {
+                Expression exp = Parse(input);
+                string result = Calc(exp).ToString();
+                StreamIO.Write(result);
+            }
+            catch (CalculatorExcpetion e)
+            {
+                StreamIO.Write(e.Message);
+            }
         }
 
         public Expression Parse(string input)
@@ -38,13 +46,20 @@ namespace Calculator
             {
                 if (!Char.IsDigit(input[i]))
                 {
-                    double num1 = double.Parse(input.Substring(0, i));
-                    double num2 = double.Parse(input.Substring(i + 1));
-                    return new Expression(num1, num2, input[i]);
+                    try
+                    {
+                        double num1 = double.Parse(input.Substring(0, i));
+                        double num2 = double.Parse(input.Substring(i + 1));
+                        return new Expression(num1, num2, input[i]);
+                    }
+                    catch (FormatException)
+                    {
+                        throw new ParsingException("Expression not found");
+                    }
                 }
             }
 
-            return null;
+            throw new ParsingException("Operation not found");
         }
 
         public double Calc(Expression exp)
@@ -59,9 +74,10 @@ namespace Calculator
                     return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
                 case '/':
                     return ArithmeticUnit.Div(exp.Num1, exp.Num2);
+ 
+                default:
+                    throw new ParsingException("Operation does not exist");
             }
-
-            return 0;
         }
     }
 }
