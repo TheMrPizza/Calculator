@@ -2,11 +2,11 @@
 using Calculator.Exceptions;
 using Calculator.Parser;
 
-namespace Calculator
+namespace Calculator.Calculator
 {
-    public class Calculator
+    public abstract class CalculatorBase
     {
-        public Calculator(ArithmeticUnit arithmeticUnit, IStreamIO streamIO, IParser parser)
+        public CalculatorBase(ArithmeticUnit arithmeticUnit, IStreamIO streamIO, IParser parser)
         {
             ArithmeticUnit = arithmeticUnit;
             StreamIO = streamIO;
@@ -19,9 +19,12 @@ namespace Calculator
 
         public IParser Parser { get; set; }
 
+
+        public abstract double Calc(Expression exp);
+
         public void Start()
         {
-            while(true)
+            while (true)
             {
                 string input = StreamIO.Read();
                 Solve(input);
@@ -39,23 +42,6 @@ namespace Calculator
             catch (CalculatorExcpetion e)
             {
                 StreamIO.Write(e.Message);
-            }
-        }
-
-        public double Calc(Expression exp)
-        {
-            switch (exp.Operation)
-            {
-                case '+':
-                    return ArithmeticUnit.Add(exp.Num1, exp.Num2);
-                case '-':
-                    return ArithmeticUnit.Sub(exp.Num1, exp.Num2);
-                case '*':
-                    return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
-                case '/':
-                    return ArithmeticUnit.Div(exp.Num1, exp.Num2);
-                default:
-                    throw new CalculatorExcpetion("Operation does not exist");
             }
         }
     }
