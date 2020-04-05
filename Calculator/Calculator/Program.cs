@@ -1,4 +1,6 @@
 ﻿using System;
+using Calculator;
+using Calculator.IO;
 
 namespace Calculator
 {
@@ -6,7 +8,15 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Calculator calc = InitCalc();
+            calc.Start();
+        }
+
+        public static Calculator InitCalc()
+        {
+            ArithmeticUnit arithmeticUnit = new ArithmeticUnit();
+            ConsoleIO consoleIO = new ConsoleIO();
+            return new Calculator(arithmeticUnit, consoleIO);
         }
     }
 }
