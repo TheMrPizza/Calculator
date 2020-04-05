@@ -2,7 +2,7 @@
 using Calculator.Parser;
 using Calculator.Calculator;
 
-namespace Calculator
+namespace Calculator.Tests
 {
     class Program
     {
