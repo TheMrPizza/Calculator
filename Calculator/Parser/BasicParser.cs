@@ -3,7 +3,7 @@ using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
-    class BasicParser : IParser
+    public class BasicParser : IParser
     {
         public Expression Parse(string input)
         {
