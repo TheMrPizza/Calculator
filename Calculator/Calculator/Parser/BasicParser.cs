@@ -11,7 +11,7 @@ namespace Calculator.Parser
             bool isNum1Found = false;
             for (int i = 0; i < input.Length; i++)
             {
-                if (Char.IsDigit(input[i]))
+                if (Char.IsDigit(input[i]) || input[i] == '.')
                 {
                     isNum1Found = true;
                 }
