@@ -1,20 +1,23 @@
-﻿using System;
-using Calculator.IO;
+﻿using Calculator.IO;
 using Calculator.Exceptions;
+using Calculator.Parser;
 
 namespace Calculator
 {
     public class Calculator
     {
-        public Calculator(ArithmeticUnit arithmeticUnit, IStreamIO streamIO)
+        public Calculator(ArithmeticUnit arithmeticUnit, IStreamIO streamIO, IParser parser)
         {
             ArithmeticUnit = arithmeticUnit;
             StreamIO = streamIO;
+            Parser = parser;
         }
 
         public ArithmeticUnit ArithmeticUnit { get; set; }
 
         public IStreamIO StreamIO { get; set; }
+
+        public IParser Parser { get; set; }
 
         public void Start()
         {
@@ -29,7 +32,7 @@ namespace Calculator
         {
             try
             {
-                Expression exp = Parse(input);
+                Expression exp = Parser.Parse(input);
                 string result = Calc(exp).ToString();
                 StreamIO.Write(result);
             }
@@ -37,34 +40,6 @@ namespace Calculator
             {
                 StreamIO.Write(e.Message);
             }
-        }
-
-        public Expression Parse(string input)
-        {
-            input = input.Replace(" ", "");
-            bool isNum1Found = false;
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (Char.IsDigit(input[i]))
-                {
-                    isNum1Found = true;
-                }
-                else if (isNum1Found)
-                {
-                    try
-                    {
-                        double num1 = double.Parse(input.Substring(0, i));
-                        double num2 = double.Parse(input.Substring(i + 1));
-                        return new Expression(num1, num2, input[i]);
-                    }
-                    catch (FormatException)
-                    {
-                        throw new ParsingException("Cannot parse the expression");
-                    }
-                }
-            }
-
-            throw new ParsingException("Operation not found");
         }
 
         public double Calc(Expression exp)
@@ -80,7 +55,7 @@ namespace Calculator
                 case '/':
                     return ArithmeticUnit.Div(exp.Num1, exp.Num2);
                 default:
-                    throw new ParsingException("Operation does not exist");
+                    throw new CalculatorExcpetion("Operation does not exist");
             }
         }
     }
