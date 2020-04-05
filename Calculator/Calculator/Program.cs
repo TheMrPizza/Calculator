@@ -1,4 +1,5 @@
 ﻿using Calculator.IO;
+using Calculator.Parser;
 
 namespace Calculator
 {
@@ -14,7 +15,8 @@ namespace Calculator
         {
             ArithmeticUnit arithmeticUnit = new ArithmeticUnit();
             ConsoleIO consoleIO = new ConsoleIO();
-            return new Calculator(arithmeticUnit, consoleIO);
+            BasicParser parser = new BasicParser();
+            return new Calculator(arithmeticUnit, consoleIO, parser);
         }
     }
 }
