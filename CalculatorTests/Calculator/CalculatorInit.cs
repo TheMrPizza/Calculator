@@ -6,11 +6,6 @@ namespace Calculator.Tests
 {
     public class CalculatorInit
     {
-        public CalculatorInit()
-        {
-
-        }
-
         public Calculator Init()
         {
             ConsoleIO consoleIO = new ConsoleIO();

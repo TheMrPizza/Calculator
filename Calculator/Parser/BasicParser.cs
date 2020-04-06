@@ -6,27 +6,28 @@ namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, char[] operations)
+        public Expression Parse(string input, string[] operations)
         {
             input = input.Replace(" ", string.Empty);
-            for (int i = 0; i < input.Length; i++)
+            foreach (string operation in operations)
             {
-                if (operations.Contains(input[i]))
+                int operationIndex = input.IndexOf(operation);
+                if (operationIndex != -1)
                 {
-                    return SubstringInput(input, i);
+                    return SubstringInput(input, operation, operationIndex);
                 }
             }
 
             throw new OperationException("Operation not found");
         }
 
-        private Expression SubstringInput(string input, int operationIndex)
+        private Expression SubstringInput(string input, string operation, int operationIndex)
         {
             try
             {
                 double num1 = double.Parse(input.Substring(0, operationIndex));
-                double num2 = double.Parse(input.Substring(operationIndex + 1));
-                return new Expression(num1, num2, input[operationIndex]);
+                double num2 = double.Parse(input.Substring(operationIndex + operation.Length));
+                return new Expression(num1, num2, operation);
             }
             catch (FormatException)
             {

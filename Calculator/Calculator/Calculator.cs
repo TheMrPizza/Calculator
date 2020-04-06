@@ -8,16 +8,16 @@ namespace Calculator
 {
     public class Calculator
     {
+        public IStreamIO StreamIO { get; set; }
+        public IParser Parser { get; set; }
+        public SolverBase Solver { get; set; }
+
         public Calculator(IStreamIO streamIO, IParser parser, SolverBase solver)
         {
             StreamIO = streamIO;
             Parser = parser;
             Solver = solver;
         }
-
-        public IStreamIO StreamIO { get; set; }
-        public IParser Parser { get; set; }
-        public SolverBase Solver { get; set; }
 
         public void Run()
         {
