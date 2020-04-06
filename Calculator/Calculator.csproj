@@ -49,7 +49,7 @@
     <Compile Include="Exceptions\CalculatorExcpetion.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\ParsingException.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="Calculator\Expression.cs" />
     <Compile Include="IO\ConsoleIO.cs" />
     <Compile Include="IO\IStreamIO.cs" />
     <Compile Include="Parser\BasicParser.cs" />
