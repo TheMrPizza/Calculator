@@ -33,9 +33,7 @@ namespace Calculator
         {
             try
             {
-                List<string> operationsSigns = Solver.ArithmeticUnit.Operations
-                    .Select(operation => operation.Sign).ToList();
-                Expression exp = Parser.Parse(input, operationsSigns);
+                Expression exp = Parser.Parse(input, Solver.ArithmeticUnit.Operations);
                 string result = Solver.Solve(exp).ToString();
                 StreamIO.Write(result);
             }

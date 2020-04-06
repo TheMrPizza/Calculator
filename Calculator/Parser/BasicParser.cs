@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Calculator.Arithmetic;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, List<string> operations)
+        public Expression Parse(string input, List<Operation> operations)
         {
             input = input.Replace(" ", string.Empty);
-            foreach (string operation in operations)
+            foreach (Operation operation in operations)
             {
-                int operationIndex = input.IndexOf(operation);
+                int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)
                 {
-                    return SubstringInput(input, operation, operationIndex);
+                    return SubstringInput(input, operation.Sign, operationIndex);
                 }
             }
 

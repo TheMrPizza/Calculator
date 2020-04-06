@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using Calculator.Arithmetic;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
-        public Expression Parse(string input, List<string> operations)
+        public Expression Parse(string input, List<Operation> operations)
         {
-            foreach (string operation in operations)
+            foreach (Operation operation in operations)
             {
-                int operationIndex = input.IndexOf(operation);
+                int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)
                 {
                     Expression right = Parse(input.Substring(0, operationIndex), operations);
-                    Expression left = Parse(input.Substring(operationIndex + operation.Length), operations);
-                    return new Expression(operation, right, left);
+                    Expression left = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
+                    return new Expression(operation.Sign, right, left);
                 }
             }
 
