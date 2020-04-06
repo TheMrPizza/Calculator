@@ -11,8 +11,8 @@ namespace Calculator.Parser
         {
             foreach (Operation operation in operations)
             {
-                int operationIndex = input.IndexOf(operation.Sign);
-                if (operationIndex != -1)
+                int operationIndex = input.LastIndexOf(operation.Sign);
+                if (operationIndex != -1 && IsOperation(input, operationIndex))
                 {
                     Expression right = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
                     Expression left = Parse(input.Substring(0, operationIndex), operations);
@@ -35,6 +35,22 @@ namespace Calculator.Parser
             {
                 throw new ParsingException("Cannot parse the expression");
             }
+        }
+
+        private bool IsOperation(string input, int operationIndex)
+        {
+            input = input.Replace(" ", string.Empty);
+            if (input[operationIndex] == '-')
+            {
+                if (operationIndex == 0)
+                {
+                    return false;
+                }
+
+                return char.IsDigit(input[operationIndex - 1]);
+            }
+
+            return true;
         }
     }
 }
