@@ -3,7 +3,7 @@ using Calculator.Parser;
 using Calculator.Arithmetic;
 using Calculator.Exceptions;
 
-namespace Calculator.Calculator
+namespace Calculator
 {
     public class Calculator
     {
