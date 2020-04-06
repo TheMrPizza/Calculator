@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Arithmetic\ArithmeticUnit.cs" />
     <Compile Include="Arithmetic\BasicSolver.cs" />
+    <Compile Include="Arithmetic\Operation.cs" />
     <Compile Include="Arithmetic\SolverBase.cs" />
     <Compile Include="Arithmetic\TreeSolver.cs" />
     <Compile Include="Calculator\Calculator.cs" />

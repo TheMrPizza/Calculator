@@ -1,19 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace Calculator.Arithmetic
+﻿namespace Calculator.Arithmetic
 {
     public class TreeSolver : SolverBase
     {
         public TreeSolver()
         {
             ArithmeticUnit = new ArithmeticUnit();
-            Operations = new Dictionary<string, Operation>
-            {
-                { "+",  ArithmeticUnit.Add },
-                { "-",  ArithmeticUnit.Sub },
-                { "*",  ArithmeticUnit.Mul },
-                { "/",  ArithmeticUnit.Div }
-            };
         }
 
         public override double Solve(Expression exp)
@@ -23,8 +14,8 @@ namespace Calculator.Arithmetic
                 return double.Parse(exp.Value);
             }
 
-            Operation operation = Operations[exp.Value];
-            return operation(Solve(exp.Left), Solve(exp.Right));
+            Operation operation = GetOperationBySign(exp.Value);
+            return operation.Func(Solve(exp.Left), Solve(exp.Right));
         }
     }
 }
