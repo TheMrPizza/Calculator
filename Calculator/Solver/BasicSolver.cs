@@ -4,9 +4,9 @@ namespace Calculator.Solver
 {
     public class BasicSolver : SolverBase
     {
-        public BasicSolver()
+        public BasicSolver(ArithmeticUnit arithmeticUnit) : base(arithmeticUnit)
         {
-            ArithmeticUnit = new ArithmeticUnit();
+            
         }
 
         public override double Solve(Expression exp)

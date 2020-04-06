@@ -1,6 +1,7 @@
 ﻿using Calculator.IO;
 using Calculator.Parser;
 using Calculator.Solver;
+using Calculator.Arithmetic;
 
 namespace Calculator.Tests
 {
@@ -10,7 +11,8 @@ namespace Calculator.Tests
         {
             ConsoleIO consoleIO = new ConsoleIO();
             TreeParser parser = new TreeParser();
-            TreeSolver solver = new TreeSolver();
+            ArithmeticUnit arithmetic = new ArithmeticUnit();
+            TreeSolver solver = new TreeSolver(arithmetic);
             return new Calculator(consoleIO, parser, solver);
         }
     }

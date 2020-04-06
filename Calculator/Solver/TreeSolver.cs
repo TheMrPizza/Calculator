@@ -4,9 +4,9 @@ namespace Calculator.Solver
 {
     public class TreeSolver : SolverBase
     {
-        public TreeSolver()
+        public TreeSolver(ArithmeticUnit arithmeticUnit) : base(arithmeticUnit)
         {
-            ArithmeticUnit = new ArithmeticUnit();
+
         }
 
         public override double Solve(Expression exp)
