@@ -1,27 +1,23 @@
 ﻿using System;
+using System.Linq;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input)
+        public Expression Parse(string input, char[] operations)
         {
             input = input.Replace(" ", string.Empty);
-            bool isNum1Found = false;
             for (int i = 0; i < input.Length; i++)
             {
-                if (char.IsDigit(input[i]) || input[i] == '.')
-                {
-                    isNum1Found = true;
-                }
-                else if (isNum1Found)
+                if (operations.Contains(input[i]))
                 {
                     return SubstringInput(input, i);
                 }
             }
 
-            throw new ParsingException("Operation not found");
+            throw new OperationException("Operation not found");
         }
 
         private Expression SubstringInput(string input, int operationIndex)

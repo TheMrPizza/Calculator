@@ -1,4 +1,5 @@
-﻿using Calculator.IO;
+﻿using System.Linq;
+using Calculator.IO;
 using Calculator.Parser;
 using Calculator.Arithmetic;
 using Calculator.Exceptions;
@@ -31,7 +32,7 @@ namespace Calculator
         {
             try
             {
-                Expression exp = Parser.Parse(input);
+                Expression exp = Parser.Parse(input, Solver.Operations.Keys.ToArray());
                 string result = Solver.Solve(exp).ToString();
                 StreamIO.Write(result);
             }
