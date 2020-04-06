@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using Calculator.IO;
+﻿using Calculator.IO;
 using Calculator.Parser;
-using Calculator.Arithmetic;
+using Calculator.Solver;
 using Calculator.Exceptions;
 
 namespace Calculator
@@ -32,7 +31,7 @@ namespace Calculator
         {
             try
             {
-                Expression exp = Parser.Parse(input, Solver.Operations.Keys.ToArray());
+                Expression exp = Parser.Parse(input, Solver.ArithmeticUnit.Operations);
                 string result = Solver.Solve(exp).ToString();
                 StreamIO.Write(result);
             }

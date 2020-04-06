@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using Calculator.Arithmetic;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, string[] operations)
+        public Expression Parse(string input, List<Operation> operations)
         {
             input = input.Replace(" ", string.Empty);
-            foreach (string operation in operations)
+            foreach (Operation operation in operations)
             {
-                int operationIndex = input.IndexOf(operation);
+                int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)
                 {
-                    return SubstringInput(input, operation, operationIndex);
+                    return SubstringInput(input, operation.Sign, operationIndex);
                 }
             }
 
@@ -25,9 +26,9 @@ namespace Calculator.Parser
         {
             try
             {
-                double num1 = double.Parse(input.Substring(0, operationIndex));
-                double num2 = double.Parse(input.Substring(operationIndex + operation.Length));
-                return new Expression(num1, num2, operation);
+                Expression right = new Expression(input.Substring(operationIndex + operation.Length));
+                Expression left = new Expression(input.Substring(0, operationIndex));
+                return new Expression(operation, right, left);
             }
             catch (FormatException)
             {
