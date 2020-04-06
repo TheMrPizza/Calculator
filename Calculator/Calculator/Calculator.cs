@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Calculator.IO;
+﻿using Calculator.IO;
 using Calculator.Parser;
-using Calculator.Arithmetic;
+using Calculator.Solver;
 using Calculator.Exceptions;
 
 namespace Calculator

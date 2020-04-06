@@ -9,6 +9,7 @@ namespace Calculator.Arithmetic
 
         public ArithmeticUnit()
         {
+            // The operations will be solved by their order here
             Operations = new List<Operation>
             {
                 new Operation("+", Add, 0),

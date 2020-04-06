@@ -1,4 +1,6 @@
-﻿namespace Calculator.Arithmetic
+﻿using Calculator.Arithmetic;
+
+namespace Calculator.Solver
 {
     public class BasicSolver : SolverBase
     {

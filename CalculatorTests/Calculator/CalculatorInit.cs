@@ -1,6 +1,6 @@
 ﻿using Calculator.IO;
 using Calculator.Parser;
-using Calculator.Arithmetic;
+using Calculator.Solver;
 
 namespace Calculator.Tests
 {

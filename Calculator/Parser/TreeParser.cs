@@ -14,8 +14,8 @@ namespace Calculator.Parser
                 int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)
                 {
-                    Expression right = Parse(input.Substring(0, operationIndex), operations);
-                    Expression left = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
+                    Expression right = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
+                    Expression left = Parse(input.Substring(0, operationIndex), operations);
                     return new Expression(operation.Sign, right, left);
                 }
             }
