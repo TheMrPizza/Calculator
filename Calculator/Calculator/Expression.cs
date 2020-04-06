@@ -19,5 +19,10 @@
             Right = right;
             Left = left;
         }
+
+        public bool IsNumber()
+        {
+            return double.TryParse(Value, out _);
+        }
     }
 }

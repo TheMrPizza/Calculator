@@ -2,9 +2,9 @@
 
 namespace Calculator.Arithmetic
 {
-    public class BasicSolver : SolverBase
+    public class TreeSolver : SolverBase
     {
-        public BasicSolver()
+        public TreeSolver()
         {
             ArithmeticUnit = new ArithmeticUnit();
             Operations = new Dictionary<string, Operation>
@@ -18,10 +18,13 @@ namespace Calculator.Arithmetic
 
         public override double Solve(Expression exp)
         {
+            if (exp.IsNumber())
+            {
+                return double.Parse(exp.Value);
+            }
+
             Operation operation = Operations[exp.Value];
-            double num1 = double.Parse(exp.Left.Value);
-            double num2 = double.Parse(exp.Right.Value);
-            return operation(num1, num2);
+            return operation(Solve(exp.Left), Solve(exp.Right));
         }
     }
 }

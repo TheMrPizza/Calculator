@@ -10,15 +10,6 @@ namespace Calculator.Arithmetic
         public ArithmeticUnit ArithmeticUnit { get; set; }
         public Dictionary<string, Operation> Operations { get; set; }
 
-        public double Solve(Expression exp)
-        {
-            if (Operations.ContainsKey(exp.Operation))
-            {
-                Operation operation = Operations[exp.Operation];
-                return operation(exp.Num1, exp.Num2);
-            }
-
-            throw new OperationException("Operation does not exist");
-        }
+        public abstract double Solve(Expression exp);
     }
 }
