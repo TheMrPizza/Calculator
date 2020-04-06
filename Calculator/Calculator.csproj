@@ -41,13 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArithmeticUnit.cs" />
-    <Compile Include="Calculator\BasicCalculator.cs" />
-    <Compile Include="Calculator\CalculatorBase.cs" />
+    <Compile Include="Arithmetic\ArithmeticUnit.cs" />
+    <Compile Include="Arithmetic\BasicSolver.cs" />
+    <Compile Include="Arithmetic\SolverBase.cs" />
+    <Compile Include="Calculator\Calculator.cs" />
     <Compile Include="Exceptions\ArithmeticExcpetion.cs" />
     <Compile Include="Exceptions\CalculatorExcpetion.cs" />
+    <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\ParsingException.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="Calculator\Expression.cs" />
     <Compile Include="IO\ConsoleIO.cs" />
     <Compile Include="IO\IStreamIO.cs" />
     <Compile Include="Parser\BasicParser.cs" />
