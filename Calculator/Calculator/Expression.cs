@@ -2,15 +2,22 @@
 {
     public class Expression
     {
-        public double Num1 { get; }
-        public double Num2 { get; }
-        public string Operation { get; }
+        public string Value { get; set; }
+        public Expression Right { get; set; }
+        public Expression Left { get; set; }
 
-        public Expression(double num1, double num2, string operation)
+        public Expression(string value)
         {
-            Num1 = num1;
-            Num2 = num2;
-            Operation = operation;
+            Value = value;
+            Right = null;
+            Left = null;
+        }
+
+        public Expression(string value, Expression right, Expression left)
+        {
+            Value = value;
+            Right = right;
+            Left = left;
         }
     }
 }
