@@ -4,6 +4,6 @@ namespace Calculator.Parser
 {
     public interface IParser
     {
-        Expression Parse(string input, string[] operations);
+        Expression Parse(string input, List<string> operations);
     }
 }

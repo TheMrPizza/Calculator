@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
-        public Expression Parse(string input, string[] operations)
+        public Expression Parse(string input, List<string> operations)
         {
             foreach (string operation in operations)
             {

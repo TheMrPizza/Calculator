@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Calculator.IO;
 using Calculator.Parser;
 using Calculator.Arithmetic;
@@ -32,7 +33,9 @@ namespace Calculator
         {
             try
             {
-                Expression exp = Parser.Parse(input, Solver.Operations.Keys.ToArray());
+                List<string> operationsSigns = Solver.ArithmeticUnit.Operations
+                    .Select(operation => operation.Sign).ToList();
+                Expression exp = Parser.Parse(input, operationsSigns);
                 string result = Solver.Solve(exp).ToString();
                 StreamIO.Write(result);
             }

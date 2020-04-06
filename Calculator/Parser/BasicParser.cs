@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, string[] operations)
+        public Expression Parse(string input, List<string> operations)
         {
             input = input.Replace(" ", string.Empty);
             foreach (string operation in operations)
