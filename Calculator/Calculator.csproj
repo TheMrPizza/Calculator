@@ -46,6 +46,7 @@
     <Compile Include="Calculator\CalculatorBase.cs" />
     <Compile Include="Exceptions\ArithmeticExcpetion.cs" />
     <Compile Include="Exceptions\CalculatorExcpetion.cs" />
+    <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\ParsingException.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="IO\ConsoleIO.cs" />

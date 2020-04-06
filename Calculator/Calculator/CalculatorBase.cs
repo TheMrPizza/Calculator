@@ -25,8 +25,11 @@ namespace Calculator.Calculator
 
         public abstract double Calc(Expression exp);
 
+        public abstract void InitOperations();
+
         public void Start()
         {
+            InitOperations();
             while (true)
             {
                 string input = StreamIO.Read();

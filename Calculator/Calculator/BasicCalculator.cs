@@ -9,6 +9,11 @@ namespace Calculator.Calculator
         public BasicCalculator(ArithmeticUnit arithmeticUnit, IStreamIO streamIO, IParser parser)
             : base(arithmeticUnit, streamIO, parser)
         {
+            
+        }
+
+        public override void InitOperations()
+        {
             Operations.Add('+', ArithmeticUnit.Add);
             Operations.Add('-', ArithmeticUnit.Sub);
             Operations.Add('*', ArithmeticUnit.Mul);
