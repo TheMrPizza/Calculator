@@ -1,4 +1,7 @@
-﻿namespace Calculator.Parser
+﻿using System;
+using Calculator.Exceptions;
+
+namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
@@ -16,7 +19,20 @@
             }
 
             input = input.Replace(" ", string.Empty);
+            CheckIfNumber(input);
             return new Expression(input);
+        }
+
+        private void CheckIfNumber(string input)
+        {
+            try
+            {
+                double.Parse(input);
+            }
+            catch (FormatException)
+            {
+                throw new ParsingException("Cannot parse the expression");
+            }
         }
     }
 }
