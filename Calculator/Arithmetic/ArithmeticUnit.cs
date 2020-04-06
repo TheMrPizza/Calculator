@@ -1,6 +1,6 @@
 ﻿using Calculator.Exceptions;
 
-namespace Calculator
+namespace Calculator.Arithmetic
 {
     public class ArithmeticUnit
     {
