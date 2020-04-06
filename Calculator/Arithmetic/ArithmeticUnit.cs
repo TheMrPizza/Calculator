@@ -1,9 +1,23 @@
-﻿using Calculator.Exceptions;
+﻿using System.Collections.Generic;
+using Calculator.Exceptions;
 
 namespace Calculator.Arithmetic
 {
     public class ArithmeticUnit
     {
+        public List<Operation> Operations { get; }
+
+        public ArithmeticUnit()
+        {
+            Operations = new List<Operation>
+            {
+                new Operation("+", Add, 0),
+                new Operation("-", Sub, 0),
+                new Operation("*", Mul, 1),
+                new Operation("/", Div, 1)
+            };
+        }
+
         public double Add(double num1, double num2)
         {
             return num1 + num2;

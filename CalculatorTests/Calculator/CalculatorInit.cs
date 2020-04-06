@@ -9,8 +9,8 @@ namespace Calculator.Tests
         public Calculator Init()
         {
             ConsoleIO consoleIO = new ConsoleIO();
-            BasicParser parser = new BasicParser();
-            BasicSolver solver = new BasicSolver();
+            TreeParser parser = new TreeParser();
+            TreeSolver solver = new TreeSolver();
             return new Calculator(consoleIO, parser, solver);
         }
     }

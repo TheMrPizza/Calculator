@@ -25,9 +25,9 @@ namespace Calculator.Parser
         {
             try
             {
-                double num1 = double.Parse(input.Substring(0, operationIndex));
-                double num2 = double.Parse(input.Substring(operationIndex + operation.Length));
-                return new Expression(num1, num2, operation);
+                Expression right = new Expression(input.Substring(operationIndex + operation.Length));
+                Expression left = new Expression(input.Substring(0, operationIndex));
+                return new Expression(operation, right, left);
             }
             catch (FormatException)
             {
