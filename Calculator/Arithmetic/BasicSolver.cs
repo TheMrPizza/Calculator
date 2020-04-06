@@ -7,12 +7,12 @@ namespace Calculator.Arithmetic
         public BasicSolver()
         {
             ArithmeticUnit = new ArithmeticUnit();
-            Operations = new Dictionary<char, Operation>
+            Operations = new Dictionary<string, Operation>
             {
-                { '+',  ArithmeticUnit.Add },
-                { '-',  ArithmeticUnit.Sub },
-                { '*',  ArithmeticUnit.Mul },
-                { '/',  ArithmeticUnit.Div }
+                { "+",  ArithmeticUnit.Add },
+                { "-",  ArithmeticUnit.Sub },
+                { "*",  ArithmeticUnit.Mul },
+                { "/",  ArithmeticUnit.Div }
             };
         }
     }

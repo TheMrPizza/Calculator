@@ -8,7 +8,7 @@ namespace Calculator.Arithmetic
         public delegate double Operation(double num1, double num2);
 
         public ArithmeticUnit ArithmeticUnit { get; set; }
-        public Dictionary<char, Operation> Operations { get; set; }
+        public Dictionary<string, Operation> Operations { get; set; }
 
         public double Solve(Expression exp)
         {
