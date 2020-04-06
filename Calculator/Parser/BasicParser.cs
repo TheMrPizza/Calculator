@@ -7,11 +7,11 @@ namespace Calculator.Parser
     {
         public Expression Parse(string input)
         {
-            input = input.Replace(" ", "");
+            input = input.Replace(" ", string.Empty);
             bool isNum1Found = false;
             for (int i = 0; i < input.Length; i++)
             {
-                if (Char.IsDigit(input[i]) || input[i] == '.')
+                if (char.IsDigit(input[i]) || input[i] == '.')
                 {
                     isNum1Found = true;
                 }

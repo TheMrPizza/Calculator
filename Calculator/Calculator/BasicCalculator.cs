@@ -9,24 +9,21 @@ namespace Calculator.Calculator
         public BasicCalculator(ArithmeticUnit arithmeticUnit, IStreamIO streamIO, IParser parser)
             : base(arithmeticUnit, streamIO, parser)
         {
-
+            Operations.Add('+', ArithmeticUnit.Add);
+            Operations.Add('-', ArithmeticUnit.Sub);
+            Operations.Add('*', ArithmeticUnit.Mul);
+            Operations.Add('/', ArithmeticUnit.Div);
         }
 
         public override double Calc(Expression exp)
         {
-            switch (exp.Operation)
+            if (Operations.ContainsKey(exp.Operation))
             {
-                case '+':
-                    return ArithmeticUnit.Add(exp.Num1, exp.Num2);
-                case '-':
-                    return ArithmeticUnit.Sub(exp.Num1, exp.Num2);
-                case '*':
-                    return ArithmeticUnit.Mul(exp.Num1, exp.Num2);
-                case '/':
-                    return ArithmeticUnit.Div(exp.Num1, exp.Num2);
-                default:
-                    throw new CalculatorExcpetion("Operation does not exist");
+                Operation operation = Operations[exp.Operation];
+                return operation(exp.Num1, exp.Num2);
             }
+
+            throw new CalculatorExcpetion("Operation does not exist");
         }
     }
 }
