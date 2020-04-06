@@ -18,11 +18,8 @@ namespace Calculator.Calculator
         }
 
         public ArithmeticUnit ArithmeticUnit { get; set; }
-
         public Dictionary<char, Operation> Operations { get; set; }
-
         public IStreamIO StreamIO { get; set; }
-
         public IParser Parser { get; set; }
 
 

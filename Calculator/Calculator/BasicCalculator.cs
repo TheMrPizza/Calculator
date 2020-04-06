@@ -23,7 +23,7 @@ namespace Calculator.Calculator
                 return operation(exp.Num1, exp.Num2);
             }
 
-            throw new CalculatorExcpetion("Operation does not exist");
+            throw new OperationException("Operation does not exist");
         }
     }
 }
