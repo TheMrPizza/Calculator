@@ -2,6 +2,6 @@
 {
     public interface IPrioritizable
     {
-        PrioritizedPart Prioritize(string input, int operationIndex);
+        SubInput Prioritize(string input, int operationIndex);
     }
 }

@@ -9,11 +9,10 @@ namespace Calculator.Parser
     {
         public Expression Parse(string input, List<IOperation> operations)
         {
-            int start = 0;
-            int end = input.Length;
+            SubInput prioritized = new SubInput(input);
             foreach (IOperation operation in operations)
             {
-                int operationIndex = input.LastIndexOf(operation.Sign);
+                int operationIndex = prioritized.Value.LastIndexOf(operation.Sign) + prioritized.StartIndex;
                 if (operationIndex != -1 && IsOperation(input, operationIndex))
                 {
                     Expression exp = operation.Parse(input, operationIndex);
