@@ -14,12 +14,15 @@ namespace Calculator.Arithmetic.Operations
             return operand1 - operand2;
         }
 
-        public void Block(Input input, int operationIndex)
+        public bool Block(Input input, int operationIndex)
         {
-            if (operationIndex != 0 && !char.IsDigit(input.Value[operationIndex - 1]))
+            if (operationIndex == 0 || !char.IsDigit(input.FullInput[operationIndex - 1]))
             {
                 input.Block(operationIndex, operationIndex);
+                return true;
             }
+
+            return false;
         }
     }
 }

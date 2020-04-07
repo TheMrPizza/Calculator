@@ -20,35 +20,37 @@ namespace Calculator.Parser
         public Expression Parse(string input)
         {
             Input = new Input(input);
-            do
+            return HandleInput();
+        }
+
+        public Expression HandleInput()
+        {
+            // Console.WriteLine(Input.Value);
+            foreach (IOperation operation in ArithmeticUnit.Operations)
             {
-                foreach (IOperation operation in ArithmeticUnit.Operations)
+                int operationIndex = Input.FindOperationIndex(operation);
+                if (operationIndex != -1)
                 {
-                    int operationIndex = Input.FindOperationIndex(operation);
-                    if (operationIndex != -1)
+                    if (operation is IBlockable)
                     {
-                        //Console.WriteLine(operation.Sign, operationIndex);
-                        if (operation is IBlockable)
+                        if ((operation as IBlockable).Block(Input, operationIndex))
                         {
-                            (operation as IBlockable).Block(Input, operationIndex);
-                            break;
-                        }
-                        else
-                        {
-                            Input.Unblock();
-                            return ParseOperation(operation, operationIndex);
+                            return HandleInput();
                         }
                     }
+
+                    Input.Unblock();
+                    return ParseOperation(operation, operationIndex);
                 }
-            } while (Input.IsBlocked);
+            }
 
             CheckIfNumber();
-            return new Expression(Input.Value);
+            return new Expression(Input.FullInput);
         }
 
         public Expression ParseOperation(IOperation operation, int operationIndex)
         {
-            Expression exp = operation.Parse(Input.Value, operationIndex);
+            Expression exp = operation.Parse(Input.FullInput, operationIndex);
             if (exp.Right != null)
             {
                 exp.Right = Parse(exp.Right.Value);
