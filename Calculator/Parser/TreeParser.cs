@@ -25,7 +25,6 @@ namespace Calculator.Parser
 
         public Expression HandleInput()
         {
-            // Console.WriteLine(Input.Value);
             foreach (IOperation operation in ArithmeticUnit.Operations)
             {
                 int operationIndex = Input.FindOperationIndex(operation);
@@ -74,22 +73,6 @@ namespace Calculator.Parser
             {
                 throw new ParsingException("Cannot parse the expression");
             }
-        }
-
-        private bool IsOperation(string input, int operationIndex)
-        {
-            input = input.Replace(" ", string.Empty);
-            if (input[operationIndex] == '-')
-            {
-                if (operationIndex == 0)
-                {
-                    return false;
-                }
-
-                return char.IsDigit(input[operationIndex - 1]);
-            }
-
-            return true;
         }
     }
 }

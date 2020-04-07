@@ -16,7 +16,8 @@ namespace Calculator.Arithmetic
                 new Add(),
                 new Sub(),
                 new Mul(),
-                new Div()
+                new Div(),
+                new Pow()
             };
         }
     }
