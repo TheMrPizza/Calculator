@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, List<Operation> operations)
+        public Expression Parse(string input, List<IOperation> operations)
         {
             input = input.Replace(" ", string.Empty);
-            foreach (Operation operation in operations)
+            foreach (IOperation operation in operations)
             {
                 int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)

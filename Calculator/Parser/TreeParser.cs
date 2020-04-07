@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
-        public Expression Parse(string input, List<Operation> operations)
+        public Expression Parse(string input, List<IOperation> operations)
         {
-            foreach (Operation operation in operations)
+            foreach (IOperation operation in operations)
             {
                 int operationIndex = input.LastIndexOf(operation.Sign);
                 if (operationIndex != -1 && IsOperation(input, operationIndex))

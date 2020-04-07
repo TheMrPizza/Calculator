@@ -1,4 +1,5 @@
 ﻿using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 
 namespace Calculator.Solver
 {
@@ -16,8 +17,8 @@ namespace Calculator.Solver
                 return double.Parse(exp.Value);
             }
 
-            Operation operation = GetOperationBySign(exp.Value);
-            return operation.Func(Solve(exp.Left), Solve(exp.Right));
+            IOperation operation = GetOperationBySign(exp.Value);
+            return operation.Operate(Solve(exp.Left), Solve(exp.Right));
         }
     }
 }
