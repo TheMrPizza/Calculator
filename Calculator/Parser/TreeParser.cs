@@ -30,20 +30,16 @@ namespace Calculator.Parser
                 int operationIndex = Input.FindOperationIndex(operation);
                 if (operationIndex != -1)
                 {
-                    if (operation is IBlockable)
+                    if (TryBlock(operation, operationIndex))
                     {
-                        if ((operation as IBlockable).Block(Input, operationIndex))
-                        {
-                            return HandleInput();
-                        }
+                        return HandleInput();
                     }
 
-                    Input.Unblock();
                     return ParseOperation(operation, operationIndex);
                 }
             }
 
-            CheckIfNumber();
+            Input.CheckIfNumber();
             return new Expression(Input.FullInput);
         }
 
@@ -63,16 +59,17 @@ namespace Calculator.Parser
             return exp;
         }
 
-        private void CheckIfNumber()
+        public bool TryBlock(IOperation operation, int operationIndex)
         {
-            try
+            if (operation is IBlockable)
             {
-                double.Parse(Input.Value);
+                if ((operation as IBlockable).Block(Input, operationIndex))
+                {
+                    return true;
+                }
             }
-            catch (FormatException)
-            {
-                throw new ParsingException("Cannot parse the expression");
-            }
+
+            return false;
         }
     }
 }

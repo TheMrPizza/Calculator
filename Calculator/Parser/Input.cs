@@ -1,4 +1,6 @@
-﻿using Calculator.Arithmetic.Operations;
+﻿using System;
+using Calculator.Arithmetic.Operations;
+using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
@@ -9,7 +11,6 @@ namespace Calculator.Parser
         public string FullInput { get; }
         private int _blockStartIndex { get; set; }
         private int _blockEndIndex { get; set; }
-
 
         public Input(string fullInput)
         {
@@ -28,14 +29,6 @@ namespace Calculator.Parser
             _blockEndIndex = endIndex;
         }
 
-        public void Unblock()
-        {
-            Value = FullInput;
-            IsBlocked = false;
-            _blockStartIndex = 0;
-            _blockEndIndex = 0;
-        }
-
         public int FindOperationIndex(IOperation operation)
         {
             for (int i = 0; i < Value.Length; i++)
@@ -52,6 +45,18 @@ namespace Calculator.Parser
             return -1;
         }
 
+        public void CheckIfNumber()
+        {
+            try
+            {
+                double.Parse(Value);
+            }
+            catch (FormatException)
+            {
+                throw new ParsingException("Cannot parse the expression");
+            }
+        }
+
         private int GetFullIndex(int index)
         {
             if (!IsBlocked || index < _blockStartIndex)
@@ -64,7 +69,9 @@ namespace Calculator.Parser
 
         private bool IsOperand(IOperation operation, int index)
         {
-            return IsDigitOrSign(index - 1) && IsDigitOrSign(index + operation.Sign.Length);
+            bool prev = index == 0 || IsDigitOrSign(index - 1);
+            bool next = index == Value.Length - 1 || IsDigitOrSign(index + operation.Sign.Length);
+            return prev && next;
         }
 
         private bool IsDigitOrSign(int index)

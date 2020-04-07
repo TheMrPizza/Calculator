@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Calculator.Arithmetic;
+﻿using Calculator.Arithmetic;
 
 namespace Calculator.Parser
 {
