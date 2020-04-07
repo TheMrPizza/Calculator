@@ -20,11 +20,6 @@ namespace Calculator.Parser
         public Expression Parse(string input)
         {
             Input = new Input(input);
-            return HandleInput();
-        }
-
-        public Expression HandleInput()
-        {
             foreach (IOperation operation in ArithmeticUnit.Operations)
             {
                 int operationIndex = Input.FindOperationIndex(operation);
@@ -42,19 +37,27 @@ namespace Calculator.Parser
                 }
             }
 
-            CheckIfNumber(Input);
+            CheckIfNumber();
             return new Expression(Input.Value);
         }
 
         public Expression ParseOperation(IOperation operation, int operationIndex)
         {
             Expression exp = operation.Parse(Input.Value, operationIndex);
-            exp.Right = Parse(exp.Right.Value);
-            exp.Left = Parse(exp.Left.Value);
+            if (exp.Right != null)
+            {
+                exp.Right = Parse(exp.Right.Value);
+            }
+
+            if (exp.Left != null)
+            {
+                exp.Left = Parse(exp.Left.Value);
+            }
+
             return exp;
         }
 
-        private void CheckIfNumber(Input input)
+        private void CheckIfNumber()
         {
             try
             {

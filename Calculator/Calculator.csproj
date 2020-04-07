@@ -42,12 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arithmetic\ArithmeticUnit.cs" />
+    <Compile Include="Arithmetic\Operations\Abs.cs" />
     <Compile Include="Arithmetic\Operations\Add.cs" />
     <Compile Include="Arithmetic\Operations\BinaryOperationBase.cs" />
     <Compile Include="Arithmetic\Operations\Div.cs" />
     <Compile Include="Arithmetic\Operations\IPrioritizable.cs" />
     <Compile Include="Arithmetic\Operations\Mul.cs" />
-    <Compile Include="Arithmetic\Operations\SubInput.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
     <Compile Include="Arithmetic\Operations\UnaryOperationBase.cs" />
     <Compile Include="Parser\Input.cs" />

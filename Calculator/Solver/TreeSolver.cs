@@ -12,6 +12,11 @@ namespace Calculator.Solver
 
         public override double Solve(Expression exp)
         {
+            if (exp is null)
+            {
+                return 0;
+            }
+
             if (exp.IsNumber())
             {
                 return double.Parse(exp.Value);

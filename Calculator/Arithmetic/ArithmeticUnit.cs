@@ -12,6 +12,7 @@ namespace Calculator.Arithmetic
             // These operations will be solved by their order here
             Operations = new List<IOperation>
             {
+                new Abs(),
                 new Add(),
                 new Sub(),
                 new Mul(),

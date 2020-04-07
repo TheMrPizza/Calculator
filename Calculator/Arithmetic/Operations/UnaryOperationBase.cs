@@ -17,8 +17,8 @@
         public Expression Parse(string input, int operationIndex)
         {
             int startIndex = operationIndex + Sign.Length;
-            int endIndex = input.IndexOf(ClosingSign);
-            string content = input.Substring(startIndex, endIndex - startIndex);
+            int endIndex = input.Substring(startIndex).IndexOf(ClosingSign);
+            string content = input.Substring(startIndex, endIndex - startIndex + 1);
             return new Expression(Sign, null, new Expression(content));
         }
     }
