@@ -20,22 +20,27 @@ namespace Calculator.Parser
         public Expression Parse(string input)
         {
             Input = new Input(input);
-            foreach (IOperation operation in ArithmeticUnit.Operations)
+            do
             {
-                int operationIndex = Input.FindOperationIndex(operation);
-                if (operationIndex != -1)
+                foreach (IOperation operation in ArithmeticUnit.Operations)
                 {
-                    if (operation is IPrioritizable)
+                    int operationIndex = Input.FindOperationIndex(operation);
+                    if (operationIndex != -1)
                     {
-                        (operation as IPrioritizable).Prioritize(Input, operationIndex);
-                    }
-                    else
-                    {
-                        Input.Unblock();
-                        return ParseOperation(operation, operationIndex);
+                        //Console.WriteLine(operation.Sign, operationIndex);
+                        if (operation is IBlockable)
+                        {
+                            (operation as IBlockable).Block(Input, operationIndex);
+                            break;
+                        }
+                        else
+                        {
+                            Input.Unblock();
+                            return ParseOperation(operation, operationIndex);
+                        }
                     }
                 }
-            }
+            } while (Input.IsBlocked);
 
             CheckIfNumber();
             return new Expression(Input.Value);

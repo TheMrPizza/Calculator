@@ -2,7 +2,7 @@
 
 namespace Calculator.Arithmetic.Operations
 {
-    public class Sub : BinaryOperationBase, IPrioritizable
+    public class Sub : BinaryOperationBase, IBlockable
     {
         public Sub() : base("-")
         {
@@ -14,7 +14,7 @@ namespace Calculator.Arithmetic.Operations
             return operand1 - operand2;
         }
 
-        public void Prioritize(Input input, int operationIndex)
+        public void Block(Input input, int operationIndex)
         {
             if (operationIndex != 0 && !char.IsDigit(input.Value[operationIndex - 1]))
             {

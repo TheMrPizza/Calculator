@@ -5,8 +5,8 @@ namespace Calculator.Parser
     public class Input
     {
         public string Value { get; private set; }
+        public bool IsBlocked { get; set; }
         private string _fullInput { get; }
-        private bool _isBlocked { get; set; }
         private int _blockStartIndex { get; set; }
         private int _blockEndIndex { get; set; }
 
@@ -15,7 +15,7 @@ namespace Calculator.Parser
         {
             Value = RemoveSpaces(fullInput);
             _fullInput = Value;
-            _isBlocked = false;
+            IsBlocked = false;
             _blockStartIndex = 0;
             _blockEndIndex = 0;
         }
@@ -23,7 +23,7 @@ namespace Calculator.Parser
         public void Block(int startIndex, int endIndex)
         {
             Value = _fullInput.Remove(startIndex, endIndex - startIndex + 1);
-            _isBlocked = true;
+            IsBlocked = true;
             _blockStartIndex = startIndex;
             _blockEndIndex = endIndex;
         }
@@ -31,7 +31,7 @@ namespace Calculator.Parser
         public void Unblock()
         {
             Value = _fullInput;
-            _isBlocked = false;
+            IsBlocked = false;
             _blockStartIndex = 0;
             _blockEndIndex = 0;
         }
@@ -39,7 +39,7 @@ namespace Calculator.Parser
         public int FindOperationIndex(IOperation operation)
         {
             int index = _fullInput.IndexOf(operation.Sign);
-            if (!_isBlocked)
+            if (!IsBlocked)
             {
                 return index;
             }
