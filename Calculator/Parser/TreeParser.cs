@@ -9,14 +9,17 @@ namespace Calculator.Parser
     {
         public Expression Parse(string input, List<IOperation> operations)
         {
+            int start = 0;
+            int end = input.Length;
             foreach (IOperation operation in operations)
             {
                 int operationIndex = input.LastIndexOf(operation.Sign);
                 if (operationIndex != -1 && IsOperation(input, operationIndex))
                 {
-                    Expression right = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
-                    Expression left = Parse(input.Substring(0, operationIndex), operations);
-                    return new Expression(operation.Sign, right, left);
+                    Expression exp = operation.Parse(input, operationIndex);
+                    exp.Right = Parse(exp.Right.Value, operations);
+                    exp.Left = Parse(exp.Left.Value, operations);
+                    return exp;
                 }
             }
 

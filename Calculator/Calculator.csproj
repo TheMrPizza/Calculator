@@ -45,8 +45,11 @@
     <Compile Include="Arithmetic\Operations\Add.cs" />
     <Compile Include="Arithmetic\Operations\BinaryOperationBase.cs" />
     <Compile Include="Arithmetic\Operations\Div.cs" />
+    <Compile Include="Arithmetic\Operations\IPrioritizable.cs" />
     <Compile Include="Arithmetic\Operations\Mul.cs" />
+    <Compile Include="Arithmetic\Operations\PrioritizedPart.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
+    <Compile Include="Arithmetic\Operations\UnaryOperationBase.cs" />
     <Compile Include="Solver\BasicSolver.cs" />
     <Compile Include="Arithmetic\Operations\IOperation.cs" />
     <Compile Include="Solver\SolverBase.cs" />
