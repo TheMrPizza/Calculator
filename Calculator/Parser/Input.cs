@@ -87,7 +87,12 @@ namespace Calculator.Parser
             {
                 if (Value[index] == '-')
                 {
-                    return IsDigitOrSign(index + 1);
+                    if (index + 1 < Value.Length)
+                    {
+                        return char.IsDigit(Value[index + 1]);
+                    }
+
+                    return false;
                 }
 
                 return char.IsDigit(Value[index]);
