@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Calculator.Arithmetic;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -7,10 +7,19 @@ namespace Calculator.Parser
 {
     public class BasicParser : IParser
     {
-        public Expression Parse(string input, List<IOperation> operations)
+        public Input Input { get; set; }
+        public ArithmeticUnit ArithmeticUnit { get; set; }
+
+        public BasicParser(ArithmeticUnit arithmeticUnit)
         {
-            input = input.Replace(" ", string.Empty);
-            foreach (IOperation operation in operations)
+            Input = null;
+            ArithmeticUnit = arithmeticUnit;
+        }
+
+        public Expression Parse(string input)
+        {
+            Input = new Input(input);
+            foreach (IOperation operation in ArithmeticUnit.Operations)
             {
                 int operationIndex = input.IndexOf(operation.Sign);
                 if (operationIndex != -1)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Calculator.Arithmetic;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -7,31 +8,57 @@ namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
-        public Expression Parse(string input, List<IOperation> operations)
+        public Input Input { get; set; }
+        public ArithmeticUnit ArithmeticUnit { get; set; }
+
+        public TreeParser(ArithmeticUnit arithmeticUnit)
         {
-            SubInput prioritized = new SubInput(input);
-            foreach (IOperation operation in operations)
+            Input = null;
+            ArithmeticUnit = arithmeticUnit;
+        }
+
+        public Expression Parse(string input)
+        {
+            Input = new Input(input);
+            return HandleInput();
+        }
+
+        public Expression HandleInput()
+        {
+            foreach (IOperation operation in ArithmeticUnit.Operations)
             {
-                int operationIndex = prioritized.Value.LastIndexOf(operation.Sign) + prioritized.StartIndex;
-                if (operationIndex != -1 && IsOperation(input, operationIndex))
+                int operationIndex = Input.FindOperationIndex(operation);
+                if (operationIndex != -1)
                 {
-                    Expression exp = operation.Parse(input, operationIndex);
-                    exp.Right = Parse(exp.Right.Value, operations);
-                    exp.Left = Parse(exp.Left.Value, operations);
-                    return exp;
+                    if (operation is IPrioritizable)
+                    {
+                        (operation as IPrioritizable).Prioritize(Input, operationIndex);
+                    }
+                    else
+                    {
+                        Input.Unblock();
+                        return ParseOperation(operation, operationIndex);
+                    }
                 }
             }
 
-            input = input.Replace(" ", string.Empty);
-            CheckIfNumber(input);
-            return new Expression(input);
+            CheckIfNumber(Input);
+            return new Expression(Input.Value);
         }
 
-        private void CheckIfNumber(string input)
+        public Expression ParseOperation(IOperation operation, int operationIndex)
+        {
+            Expression exp = operation.Parse(Input.Value, operationIndex);
+            exp.Right = Parse(exp.Right.Value);
+            exp.Left = Parse(exp.Left.Value);
+            return exp;
+        }
+
+        private void CheckIfNumber(Input input)
         {
             try
             {
-                double.Parse(input);
+                double.Parse(Input.Value);
             }
             catch (FormatException)
             {

@@ -31,7 +31,7 @@ namespace Calculator
         {
             try
             {
-                Expression exp = Parser.Parse(input, Solver.ArithmeticUnit.Operations);
+                Expression exp = Parser.Parse(input);
                 string result = Solver.Solve(exp).ToString();
                 StreamIO.Write(result);
             }

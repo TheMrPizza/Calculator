@@ -50,6 +50,7 @@
     <Compile Include="Arithmetic\Operations\SubInput.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
     <Compile Include="Arithmetic\Operations\UnaryOperationBase.cs" />
+    <Compile Include="Parser\Input.cs" />
     <Compile Include="Solver\BasicSolver.cs" />
     <Compile Include="Arithmetic\Operations\IOperation.cs" />
     <Compile Include="Solver\SolverBase.cs" />
