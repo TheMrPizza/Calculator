@@ -1,4 +1,6 @@
-﻿namespace Calculator.Arithmetic.Operations
+﻿using System.Collections.Generic;
+
+namespace Calculator.Arithmetic.Operations
 {
     public abstract class BinaryOperationBase : IOperation
     {
@@ -16,6 +18,11 @@
             Expression right = new Expression(input.Substring(operationIndex + Sign.Length));
             Expression left = new Expression(input.Substring(0, operationIndex));
             return new Expression(Sign, right, left);
+        }
+
+        public List<int> GetOperandsIndexes(int operationIndex)
+        {
+            return new List<int> { operationIndex - 1, operationIndex + Sign.Length };
         }
     }
 }

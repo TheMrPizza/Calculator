@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -7,15 +8,15 @@ namespace Calculator.Parser
     public class Input
     {
         public string Value { get; private set; }
+        public string FullValue { get; }
         public bool IsBlocked { get; set; }
-        public string FullInput { get; }
         private int _blockStartIndex { get; set; }
         private int _blockEndIndex { get; set; }
 
-        public Input(string fullInput)
+        public Input(string fullValue)
         {
-            Value = RemoveSpaces(fullInput);
-            FullInput = Value;
+            Value = RemoveSpaces(fullValue);
+            FullValue = Value;
             IsBlocked = false;
             _blockStartIndex = 0;
             _blockEndIndex = 0;
@@ -23,7 +24,7 @@ namespace Calculator.Parser
 
         public void Block(int startIndex, int endIndex)
         {
-            Value = FullInput.Remove(startIndex, endIndex - startIndex + 1);
+            Value = FullValue.Remove(startIndex, endIndex - startIndex + 1);
             IsBlocked = true;
             _blockStartIndex = startIndex;
             _blockEndIndex = endIndex;
@@ -69,16 +70,27 @@ namespace Calculator.Parser
 
         private bool IsOperand(IOperation operation, int index)
         {
-            bool prev = index == 0 || IsDigitOrSign(index - 1);
-            bool next = index == Value.Length - 1 || IsDigitOrSign(index + operation.Sign.Length);
-            return prev && next;
+            foreach (int operandIndex in operation.GetOperandsIndexes(index))
+            {
+                if (!IsDigitOrSign(operandIndex))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private bool IsDigitOrSign(int index)
         {
             if (index >= 0 && index < Value.Length)
             {
-                return char.IsDigit(Value[index]) || Value[index] == '-';
+                if (Value[index] == '-')
+                {
+                    return IsDigitOrSign(index + 1);
+                }
+
+                return char.IsDigit(Value[index]);
             }
 
             return false;

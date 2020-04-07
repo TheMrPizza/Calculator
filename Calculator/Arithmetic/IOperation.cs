@@ -1,4 +1,6 @@
-﻿namespace Calculator.Arithmetic.Operations
+﻿using System.Collections.Generic;
+
+namespace Calculator.Arithmetic.Operations
 {
     public interface IOperation
     {
@@ -7,5 +9,7 @@
         double Operate(double operand1, double operand2);
 
         Expression Parse(string input, int operationIndex);
+
+        List<int> GetOperandsIndexes(int operationIndex);
     }
 }

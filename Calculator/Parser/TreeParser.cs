@@ -37,12 +37,12 @@ namespace Calculator.Parser
             }
 
             Input.CheckIfNumber();
-            return new Expression(Input.FullInput);
+            return new Expression(Input.FullValue);
         }
 
         public Expression ParseOperation(IOperation operation, int operationIndex)
         {
-            Expression exp = operation.Parse(Input.FullInput, operationIndex);
+            Expression exp = operation.Parse(Input.FullValue, operationIndex);
             if (exp.Right != null)
             {
                 exp.Right = Parse(exp.Right.Value);

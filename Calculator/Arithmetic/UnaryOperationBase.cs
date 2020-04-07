@@ -1,4 +1,7 @@
-﻿namespace Calculator.Arithmetic.Operations
+﻿using System.Collections.Generic;
+using Calculator.Exceptions;
+
+namespace Calculator.Arithmetic.Operations
 {
     public abstract class UnaryOperationBase : IOperation
     {
@@ -18,8 +21,17 @@
         {
             int startIndex = operationIndex + Sign.Length;
             int endIndex = input.Substring(startIndex).IndexOf(ClosingSign);
+            if (endIndex == -1)
+            {
+                throw new ParsingException("Closing operation not found");
+            }
             string content = input.Substring(startIndex, endIndex - startIndex + 1);
             return new Expression(Sign, null, new Expression(content));
+        }
+
+        public List<int> GetOperandsIndexes(int operationIndex)
+        {
+            return new List<int> { operationIndex + Sign.Length };
         }
     }
 }
