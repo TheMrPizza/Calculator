@@ -8,14 +8,16 @@ namespace Calculator.Parser
     public class Input
     {
         public string Value { get; }
-        private string _filteredValue { get; set; }
-        private char _filterSign { get; }
+        public InputUtils Utils { get; }
+        public string FilteredValue { get; set; }
+        public char FilterSign { get; }
 
         public Input(string value)
         {
-            Value = RemoveSpaces(value);
-            _filteredValue = Value;
-            _filterSign = '\0';
+            Utils = new InputUtils(this);
+            Value = Utils.RemoveSpaces(value);
+            FilteredValue = Value;
+            FilterSign = '\0';
         }
 
         public int FindOperationIndex(IOperation operation, List<IOperation> allOperations)
@@ -31,9 +33,9 @@ namespace Calculator.Parser
         public int FindRTL(IOperation operation, List<IOperation> allOperations)
         {
             int minIndex = 0;
-            for (int i = 0; i < _filteredValue.Length; i++)
+            for (int i = 0; i < FilteredValue.Length; i++)
             {
-                if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign)
+                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
                     && operation.IsOperationCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
@@ -51,10 +53,10 @@ namespace Calculator.Parser
 
         public int FindLTR(IOperation operation, List<IOperation> allOperations)
         {
-            int maxIndex = _filteredValue.Length;
-            for (int i = _filteredValue.Length; i >= 0; i--)
+            int maxIndex = FilteredValue.Length;
+            for (int i = FilteredValue.Length; i >= 0; i--)
             {
-                if (i <= maxIndex && _filteredValue.Substring(i).StartsWith(operation.Sign)
+                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
                     && operation.IsOperationCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
@@ -72,10 +74,10 @@ namespace Calculator.Parser
 
         public void Block(int startIndex, int endIndex)
         {
-            string start = _filteredValue.Substring(0, startIndex);
-            string middle = new string(_filterSign, endIndex - startIndex + 1);
-            string end = _filteredValue.Substring(endIndex + 1);
-            _filteredValue = start + middle + end;
+            string start = FilteredValue.Substring(0, startIndex);
+            string middle = new string(FilterSign, endIndex - startIndex + 1);
+            string end = FilteredValue.Substring(endIndex + 1);
+            FilteredValue = start + middle + end;
         }
 
         public void CheckIfNumber()
@@ -95,7 +97,7 @@ namespace Calculator.Parser
             int maxLength = 0;
             for (int i = 0; i < allOperations.Count; i++)
             {
-                if (_filteredValue.Substring(index).StartsWith(allOperations[i].Sign))
+                if (FilteredValue.Substring(index).StartsWith(allOperations[i].Sign))
                 {
                     if (allOperations[i].Sign.Length > maxLength)
                     {
@@ -105,42 +107,6 @@ namespace Calculator.Parser
             }
 
             return maxLength;
-        }
-
-        public bool IsPrevOperandCorrect(int index)
-        {
-            return IsOperand(index - 1);
-        }
-
-        public bool IsNextOperandCorrect(int index)
-        {
-            if (IsOperand(index + 1))
-            {
-                return true;
-            }
-
-            return IsOperand(index + 2);
-        }
-
-        private bool IsOperand(int index)
-        {
-            try
-            {
-                return double.TryParse(Value.Substring(index, 1), out _) || _filteredValue[index] == _filterSign;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return false;
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return false;
-            }
-        }
-
-        private string RemoveSpaces(string input)
-        {
-            return input.Replace(" ", string.Empty);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Calculator.Arithmetic.Operations
 
         public bool IsOperationCorrect(Input input, int operationIndex)
         {
-            return input.IsNextOperandCorrect(operationIndex);
+            return input.Utils.IsNextOperandCorrect(operationIndex);
         }
     }
 }
