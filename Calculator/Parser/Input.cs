@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -17,13 +18,13 @@ namespace Calculator.Parser
             Blocker = new Blocker();
         }
 
-        public int FindOperationIndex(IOperation operation)
+        public int FindOperationIndex(IOperation operation, List<IOperation> allOperations)
         {
             for (int i = 0; i < Value.Length; i++)
             {
                 if (Value.Substring(i).StartsWith(operation.Sign))
                 {
-                    if (IsOperand(operation, i))
+                    if (IsMaxMatchingOperation(i, operation, allOperations))
                     {
                         return Blocker.GetFullIndex(i);
                     }
@@ -31,6 +32,23 @@ namespace Calculator.Parser
             }
 
             return -1;
+        }
+
+        private bool IsMaxMatchingOperation(int index, IOperation operation, List<IOperation> allOperations)
+        {
+            IOperation maxOperation = operation;
+            for (int i = 0; i < allOperations.Count; i++)
+            {
+                if (Value.Substring(index).StartsWith(allOperations[i].Sign))
+                {
+                    if (allOperations[i].Sign.Length > maxOperation.Sign.Length)
+                    {
+                        maxOperation = allOperations[i];
+                    }
+                }
+            }
+
+            return maxOperation == operation;
         }
 
         public void Block(int startIndex, int endIndex)
@@ -57,6 +75,7 @@ namespace Calculator.Parser
             {
                 if (!IsDigitOrSign(operandIndex))
                 {
+                    Console.WriteLine(operandIndex);
                     return false;
                 }
             }
@@ -66,19 +85,19 @@ namespace Calculator.Parser
 
         private bool IsDigitOrSign(int index)
         {
-            if (index >= 0 && index < Value.Length)
+            if (index >= 0 && index < FullValue.Length)
             {
-                if (Value[index] == '-')
+                if (FullValue[index] == '-')
                 {
-                    if (index + 1 < Value.Length)
+                    if (index + 1 < FullValue.Length)
                     {
-                        return char.IsDigit(Value[index + 1]);
+                        return char.IsDigit(FullValue[index + 1]);
                     }
 
                     return false;
                 }
 
-                return char.IsDigit(Value[index]);
+                return char.IsDigit(FullValue[index]);
             }
 
             return false;
