@@ -51,6 +51,7 @@
     <Compile Include="Arithmetic\Operations\Pow.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
     <Compile Include="Arithmetic\UnaryOperationBase.cs" />
+    <Compile Include="Parser\Blocker.cs" />
     <Compile Include="Parser\Input.cs" />
     <Compile Include="Solver\BasicSolver.cs" />
     <Compile Include="Arithmetic\IOperation.cs" />

@@ -6,7 +6,6 @@ namespace Calculator.Arithmetic.Operations
     public abstract class UnaryOperationBase : IOperation
     {
         public string Sign { get; }
-
         public string ClosingSign { get; }
 
         public UnaryOperationBase(string sign, string closingSign)
@@ -25,6 +24,7 @@ namespace Calculator.Arithmetic.Operations
             {
                 throw new ParsingException("Closing operation not found");
             }
+
             string content = input.Substring(startIndex, endIndex - startIndex + 1);
             return new Expression(Sign, null, new Expression(content));
         }

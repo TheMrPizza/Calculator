@@ -43,16 +43,8 @@ namespace Calculator.Parser
         public Expression ParseOperation(IOperation operation, int operationIndex)
         {
             Expression exp = operation.Parse(Input.FullValue, operationIndex);
-            if (exp.Right != null)
-            {
-                exp.Right = Parse(exp.Right.Value);
-            }
-
-            if (exp.Left != null)
-            {
-                exp.Left = Parse(exp.Left.Value);
-            }
-
+            exp.Right = exp.Right == null ? null : Parse(exp.Right.Value);
+            exp.Left = exp.Left == null ? null : Parse(exp.Left.Value);
             return exp;
         }
 

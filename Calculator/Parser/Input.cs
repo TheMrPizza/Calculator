@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -9,25 +8,13 @@ namespace Calculator.Parser
     {
         public string Value { get; private set; }
         public string FullValue { get; }
-        public bool IsBlocked { get; set; }
-        private int _blockStartIndex { get; set; }
-        private int _blockEndIndex { get; set; }
+        public Blocker Blocker { get; }
 
         public Input(string fullValue)
         {
             Value = RemoveSpaces(fullValue);
             FullValue = Value;
-            IsBlocked = false;
-            _blockStartIndex = 0;
-            _blockEndIndex = 0;
-        }
-
-        public void Block(int startIndex, int endIndex)
-        {
-            Value = FullValue.Remove(startIndex, endIndex - startIndex + 1);
-            IsBlocked = true;
-            _blockStartIndex = startIndex;
-            _blockEndIndex = endIndex;
+            Blocker = new Blocker();
         }
 
         public int FindOperationIndex(IOperation operation)
@@ -38,12 +25,18 @@ namespace Calculator.Parser
                 {
                     if (IsOperand(operation, i))
                     {
-                        return GetFullIndex(i);
+                        return Blocker.GetFullIndex(i);
                     }
                 }
             }
 
             return -1;
+        }
+
+        public void Block(int startIndex, int endIndex)
+        {
+            Value = FullValue.Remove(startIndex, endIndex - startIndex + 1);
+            Blocker.Block(startIndex, endIndex);
         }
 
         public void CheckIfNumber()
@@ -56,16 +49,6 @@ namespace Calculator.Parser
             {
                 throw new ParsingException("Cannot parse the expression");
             }
-        }
-
-        private int GetFullIndex(int index)
-        {
-            if (!IsBlocked || index < _blockStartIndex)
-            {
-                return index;
-            }
-
-            return index + (_blockEndIndex - _blockStartIndex + 1);
         }
 
         private bool IsOperand(IOperation operation, int index)
@@ -101,9 +84,9 @@ namespace Calculator.Parser
             return false;
         }
 
-        private string RemoveSpaces(string fullInput)
+        private string RemoveSpaces(string input)
         {
-            return fullInput.Replace(" ", string.Empty);
+            return input.Replace(" ", string.Empty);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Calculator.Solver
 
         public override double Solve(Expression exp)
         {
-            if (exp is null)
+            if (exp == null)
             {
                 return 0;
             }
