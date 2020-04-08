@@ -6,6 +6,7 @@ namespace Calculator.Arithmetic.Operations
     {
         string Name { get; }
         string Sign { get; }
+        bool IsRTL { get; }
 
         double Operate(double operand1, double operand2);
 

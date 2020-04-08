@@ -6,11 +6,13 @@ namespace Calculator.Arithmetic.Operations
     {
         public string Name { get; }
         public string Sign { get; }
+        public bool IsRTL { get; }
 
-        public BinaryOperationBase(string name, string sign)
+        public BinaryOperationBase(string name, string sign, bool isRTL=false)
         {
             Name = name;
             Sign = sign;
+            IsRTL = isRTL;
         }
 
         public abstract double Operate(double operand1, double operand2);

@@ -7,12 +7,14 @@ namespace Calculator.Arithmetic.Operations
     {
         public string Name { get; }
         public string Sign { get; }
+        public bool IsRTL { get; }
         public string ClosingSign { get; }
 
-        public UnaryOperationBase(string name, string sign, string closingSign)
+        public UnaryOperationBase(string name, string sign, string closingSign, bool isRTL=false)
         {
             Name = name;
             Sign = sign;
+            IsRTL = isRTL;
             ClosingSign = closingSign;
         }
 

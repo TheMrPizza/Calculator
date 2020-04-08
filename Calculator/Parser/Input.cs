@@ -20,6 +20,16 @@ namespace Calculator.Parser
 
         public int FindOperationIndex(IOperation operation, List<IOperation> allOperations)
         {
+            if (operation.IsRTL)
+            {
+                return FindRTL(operation, allOperations);
+            }
+
+            return FindLTR(operation, allOperations);
+        }
+
+        public int FindRTL(IOperation operation, List<IOperation> allOperations)
+        {
             int minIndex = 0;
             for (int i = 0; i < _filteredValue.Length; i++)
             {
@@ -33,6 +43,27 @@ namespace Calculator.Parser
                     }
 
                     minIndex = i + maxLength;
+                }
+            }
+
+            return -1;
+        }
+
+        public int FindLTR(IOperation operation, List<IOperation> allOperations)
+        {
+            int maxIndex = _filteredValue.Length;
+            for (int i = _filteredValue.Length; i >= 0; i--)
+            {
+                if (i <= maxIndex && _filteredValue.Substring(i).StartsWith(operation.Sign)
+                    && operation.IsOperationCorrect(this, i))
+                {
+                    int maxLength = MaxMatchingOperationLength(i, allOperations);
+                    if (operation.Sign.Length == maxLength)
+                    {
+                        return i;
+                    }
+
+                    maxIndex = i - maxLength;
                 }
             }
 

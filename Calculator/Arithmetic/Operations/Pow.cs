@@ -4,7 +4,7 @@ namespace Calculator.Arithmetic.Operations
 {
     public class Pow : BinaryOperationBase
     {
-        public Pow() : base("Pow", "**")
+        public Pow() : base("Pow", "**", true)
         {
 
         }
