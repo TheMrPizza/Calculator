@@ -99,7 +99,7 @@ namespace Calculator.Parser
         {
             try
             {
-                return double.TryParse(Value.Substring(index, 1), out _) || Value[index] == _filterSign;
+                return double.TryParse(Value.Substring(index, 1), out _) || _filteredValue[index] == _filterSign;
             }
             catch (ArgumentOutOfRangeException)
             {
