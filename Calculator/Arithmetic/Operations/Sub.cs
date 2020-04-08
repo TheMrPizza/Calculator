@@ -16,7 +16,7 @@ namespace Calculator.Arithmetic.Operations
 
         public bool Block(Input input, int operationIndex)
         {
-            if (operationIndex == 0 || !char.IsDigit(input.FullValue[operationIndex - 1]))
+            if (operationIndex == 0 || !char.IsDigit(input.Value[operationIndex - 1]))
             {
                 input.Block(operationIndex, operationIndex);
                 return true;

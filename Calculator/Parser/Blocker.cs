@@ -34,5 +34,15 @@
 
             return index + (EndIndex - StartIndex + 1);
         }
+
+        public int GetRelativeIndex(int index)
+        {
+            if (!IsBlocked || index < StartIndex)
+            {
+                return index;
+            }
+
+            return index - (EndIndex - StartIndex + 1);
+        }
     }
 }

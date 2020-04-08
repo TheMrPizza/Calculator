@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -7,54 +10,43 @@ namespace Calculator.Parser
 {
     public class Input
     {
-        public string Value { get; private set; }
-        public string FullValue { get; }
-        public Blocker Blocker { get; }
+        public string Value { get; }
+        private string _filteredValue { get; set; }
+        private char _filterSign { get; }
 
-        public Input(string fullValue)
+        public Input(string value)
         {
-            Value = RemoveSpaces(fullValue);
-            FullValue = Value;
-            Blocker = new Blocker();
+            Value = RemoveSpaces(value);
+            _filteredValue = Value;
+            _filterSign = '\0';
         }
 
         public int FindOperationIndex(IOperation operation, List<IOperation> allOperations)
         {
-            for (int i = 0; i < Value.Length; i++)
+            int minIndex = 0;
+            for (int i = 0; i < _filteredValue.Length; i++)
             {
-                if (Value.Substring(i).StartsWith(operation.Sign))
+                if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign))
                 {
-                    if (IsMaxMatchingOperation(i, operation, allOperations))
+                    IOperation maxMatching = MaxMatchingOperation(i, allOperations);
+                    if (maxMatching == operation)
                     {
-                        return Blocker.GetFullIndex(i);
+                        return i;
                     }
+
+                    minIndex = i + maxMatching.Sign.Length;
                 }
             }
 
             return -1;
         }
 
-        private bool IsMaxMatchingOperation(int index, IOperation operation, List<IOperation> allOperations)
-        {
-            IOperation maxOperation = operation;
-            for (int i = 0; i < allOperations.Count; i++)
-            {
-                if (Value.Substring(index).StartsWith(allOperations[i].Sign))
-                {
-                    if (allOperations[i].Sign.Length > maxOperation.Sign.Length)
-                    {
-                        maxOperation = allOperations[i];
-                    }
-                }
-            }
-
-            return maxOperation == operation;
-        }
-
         public void Block(int startIndex, int endIndex)
         {
-            Value = FullValue.Remove(startIndex, endIndex - startIndex + 1);
-            Blocker.Block(startIndex, endIndex);
+            string start = _filteredValue.Substring(0, startIndex);
+            string middle = new string(_filterSign, endIndex - startIndex + 1);
+            string end = _filteredValue.Substring(endIndex + 1);
+            _filteredValue = start + middle + end;
         }
 
         public void CheckIfNumber()
@@ -69,38 +61,23 @@ namespace Calculator.Parser
             }
         }
 
-        private bool IsOperand(IOperation operation, int index)
+        private IOperation MaxMatchingOperation(int index, List<IOperation> allOperations)
         {
-            foreach (int operandIndex in operation.GetOperandsIndexes(index))
+            IOperation maxOperation = allOperations[0];
+            int maxLength = 0;
+            for (int i = 0; i < allOperations.Count; i++)
             {
-                if (!IsDigitOrSign(operandIndex))
+                if (_filteredValue.Substring(index).StartsWith(allOperations[i].Sign))
                 {
-                    Console.WriteLine(operandIndex);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool IsDigitOrSign(int index)
-        {
-            if (index >= 0 && index < FullValue.Length)
-            {
-                if (FullValue[index] == '-')
-                {
-                    if (index + 1 < FullValue.Length)
+                    if (allOperations[i].Sign.Length > maxLength)
                     {
-                        return char.IsDigit(FullValue[index + 1]);
+                        maxOperation = allOperations[i];
+                        maxLength = allOperations[i].Sign.Length;
                     }
-
-                    return false;
                 }
-
-                return char.IsDigit(FullValue[index]);
             }
 
-            return false;
+            return maxOperation;
         }
 
         private string RemoveSpaces(string input)

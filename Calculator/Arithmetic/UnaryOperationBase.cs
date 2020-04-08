@@ -33,15 +33,16 @@ namespace Calculator.Arithmetic.Operations
         public bool Block(Input input, int operationIndex)
         {
             int startIndex = operationIndex;
-            int endIndex = input.Value.LastIndexOf(ClosingSign);
-            if (operationIndex == 0 && endIndex == input.Value.Length - 1)
-            {
-                return false;
-            }
-
+            int endIndex = input.Value.Substring(startIndex + Sign.Length).LastIndexOf(ClosingSign);
             if (endIndex == -1)
             {
                 throw new ParsingException("Closing operation not found");
+            }
+
+            endIndex += startIndex + Sign.Length;
+            if (startIndex == 0 && endIndex == input.Value.Length - 1)
+            {
+                return false;
             }
 
             input.Block(startIndex, endIndex);
