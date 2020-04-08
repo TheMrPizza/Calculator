@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Calculator.Exceptions;
+﻿using Calculator.Exceptions;
 using Calculator.Parser;
 
 namespace Calculator.Arithmetic.Operations
@@ -23,11 +22,6 @@ namespace Calculator.Arithmetic.Operations
         {
             int startIndex = operationIndex + Sign.Length;
             int endIndex = input.LastIndexOf(ClosingSign);
-            if (endIndex == -1)
-            {
-                throw new ParsingException("Closing operation not found");
-            }
-
             string content = input.Substring(startIndex, endIndex - startIndex);
             return new Expression(Name, null, new Expression(content));
         }

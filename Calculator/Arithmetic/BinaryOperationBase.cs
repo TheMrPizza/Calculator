@@ -24,7 +24,8 @@ namespace Calculator.Arithmetic.Operations
 
         public bool IsOperationCorrect(Input input, int operationIndex)
         {
-            return input.IsPrevOperandCorrect(operationIndex) && input.IsNextOperandCorrect(operationIndex + Sign.Length - 1);
+            return input.IsPrevOperandCorrect(operationIndex) &&
+                input.IsNextOperandCorrect(operationIndex + Sign.Length - 1);
         }
     }
 }

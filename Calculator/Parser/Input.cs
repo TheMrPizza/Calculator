@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Calculator.Arithmetic.Operations;
 using Calculator.Exceptions;
 
@@ -28,13 +25,13 @@ namespace Calculator.Parser
             {
                 if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign))
                 {
-                    IOperation maxMatching = MaxMatchingOperation(i, allOperations);
-                    if (maxMatching.Sign.Length == operation.Sign.Length)
+                    int maxLength = MaxMatchingOperationLength(i, allOperations);
+                    if (operation.Sign.Length == maxLength)
                     {
                         return i;
                     }
 
-                    minIndex = i + maxMatching.Sign.Length;
+                    minIndex = i + maxLength;
                 }
             }
 
@@ -61,9 +58,8 @@ namespace Calculator.Parser
             }
         }
 
-        private IOperation MaxMatchingOperation(int index, List<IOperation> allOperations)
+        private int MaxMatchingOperationLength(int index, List<IOperation> allOperations)
         {
-            IOperation maxOperation = allOperations[0];
             int maxLength = 0;
             for (int i = 0; i < allOperations.Count; i++)
             {
@@ -71,13 +67,12 @@ namespace Calculator.Parser
                 {
                     if (allOperations[i].Sign.Length > maxLength)
                     {
-                        maxOperation = allOperations[i];
                         maxLength = allOperations[i].Sign.Length;
                     }
                 }
             }
 
-            return maxOperation;
+            return maxLength;
         }
 
         public bool IsPrevOperandCorrect(int index)
