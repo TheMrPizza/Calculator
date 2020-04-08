@@ -25,7 +25,7 @@ namespace Calculator.Parser
             foreach (IOperation operation in ArithmeticUnit.Operations)
             {
                 int operationIndex = Input.FindOperationIndex(operation, ArithmeticUnit.Operations);
-                if (operationIndex != -1 && operation.IsOperationCorrect(Input, operationIndex))
+                if (operationIndex != -1)
                 {
                     if (TryBlock(operation, operationIndex))
                     {

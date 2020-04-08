@@ -23,7 +23,8 @@ namespace Calculator.Parser
             int minIndex = 0;
             for (int i = 0; i < _filteredValue.Length; i++)
             {
-                if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign))
+                if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign)
+                    && operation.IsOperationCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
                     if (operation.Sign.Length == maxLength)
