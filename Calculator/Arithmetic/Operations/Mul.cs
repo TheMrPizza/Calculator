@@ -2,7 +2,7 @@
 {
     public class Mul : BinaryOperationBase
     {
-        public Mul() : base("*")
+        public Mul() : base("Mul", "*")
         {
 
         }

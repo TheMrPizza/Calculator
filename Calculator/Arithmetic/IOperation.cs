@@ -4,6 +4,7 @@ namespace Calculator.Arithmetic.Operations
 {
     public interface IOperation
     {
+        string Name { get; }
         string Sign { get; }
 
         double Operate(double operand1, double operand2);

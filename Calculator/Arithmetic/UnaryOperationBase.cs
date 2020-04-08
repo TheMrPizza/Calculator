@@ -6,11 +6,13 @@ namespace Calculator.Arithmetic.Operations
 {
     public abstract class UnaryOperationBase : IOperation, IBlockable
     {
+        public string Name { get; }
         public string Sign { get; }
         public string ClosingSign { get; }
 
-        public UnaryOperationBase(string sign, string closingSign)
+        public UnaryOperationBase(string name, string sign, string closingSign)
         {
+            Name = name;
             Sign = sign;
             ClosingSign = closingSign;
         }
@@ -27,7 +29,7 @@ namespace Calculator.Arithmetic.Operations
             }
 
             string content = input.Substring(startIndex, endIndex - startIndex);
-            return new Expression(Sign, null, new Expression(content));
+            return new Expression(Name, null, new Expression(content));
         }
 
         public bool Block(Input input, int operationIndex)

@@ -2,7 +2,7 @@
 {
     public class Add : BinaryOperationBase
     {
-        public Add() : base("+")
+        public Add() : base("Add", "+")
         {
 
         }

@@ -14,9 +14,10 @@ namespace Calculator.Solver
         }
 
         public abstract double Solve(Expression exp);
-        public IOperation GetOperationBySign(string sign)
+
+        public IOperation GetOperationByName(string name)
         {
-            return ArithmeticUnit.Operations.Where(operation => operation.Sign == sign).First();
+            return ArithmeticUnit.Operations.Where(operation => operation.Name == name).First();
         }
     }
 }

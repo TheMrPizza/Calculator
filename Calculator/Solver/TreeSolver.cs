@@ -22,7 +22,7 @@ namespace Calculator.Solver
                 return double.Parse(exp.Value);
             }
 
-            IOperation operation = GetOperationBySign(exp.Value);
+            IOperation operation = GetOperationByName(exp.Value);
             return operation.Operate(Solve(exp.Left), Solve(exp.Right));
         }
     }

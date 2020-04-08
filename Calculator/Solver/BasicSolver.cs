@@ -12,7 +12,7 @@ namespace Calculator.Solver
 
         public override double Solve(Expression exp)
         {
-            IOperation operation = GetOperationBySign(exp.Value);
+            IOperation operation = GetOperationByName(exp.Value);
             double num1 = double.Parse(exp.Left.Value);
             double num2 = double.Parse(exp.Right.Value);
             return operation.Operate(num1, num2);

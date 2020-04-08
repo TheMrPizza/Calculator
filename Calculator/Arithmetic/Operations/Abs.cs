@@ -5,7 +5,7 @@ namespace Calculator.Arithmetic.Operations
 {
     public class Abs : UnaryOperationBase
     {
-        public Abs() : base("|", "|")
+        public Abs() : base("Abs", "|", "|")
         {
 
         }

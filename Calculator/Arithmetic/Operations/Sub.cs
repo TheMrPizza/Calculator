@@ -4,7 +4,7 @@ namespace Calculator.Arithmetic.Operations
 {
     public class Sub : BinaryOperationBase, IBlockable
     {
-        public Sub() : base("-")
+        public Sub() : base("Sub", "-")
         {
 
         }

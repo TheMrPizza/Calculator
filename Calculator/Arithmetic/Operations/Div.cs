@@ -4,7 +4,7 @@ namespace Calculator.Arithmetic.Operations
 {
     public class Div : BinaryOperationBase
     {
-        public Div() : base("/")
+        public Div() : base("Div", "/")
         {
 
         }

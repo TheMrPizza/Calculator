@@ -2,7 +2,7 @@
 {
     public class Negation : UnaryOperationBase
     {
-        public Negation() : base("-", "")
+        public Negation() : base("Negation", "-", string.Empty)
         {
 
         }
@@ -15,7 +15,7 @@
         public override Expression Parse(string input, int operationIndex)
         {
             string content = input.Substring(operationIndex + 1);
-            return new Expression(Sign, null, new Expression(content));
+            return new Expression(Name, null, new Expression(content));
         }
     }
 }
