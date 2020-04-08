@@ -48,10 +48,10 @@
     <Compile Include="Arithmetic\Operations\Div.cs" />
     <Compile Include="Arithmetic\IBlockable.cs" />
     <Compile Include="Arithmetic\Operations\Mul.cs" />
+    <Compile Include="Arithmetic\Operations\Negation.cs" />
     <Compile Include="Arithmetic\Operations\Pow.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
     <Compile Include="Arithmetic\UnaryOperationBase.cs" />
-    <Compile Include="Parser\Blocker.cs" />
     <Compile Include="Parser\Input.cs" />
     <Compile Include="Solver\BasicSolver.cs" />
     <Compile Include="Arithmetic\IOperation.cs" />

@@ -17,7 +17,7 @@ namespace Calculator.Arithmetic.Operations
 
         public abstract double Operate(double operand1, double operand2);
 
-        public Expression Parse(string input, int operationIndex)
+        public virtual Expression Parse(string input, int operationIndex)
         {
             int startIndex = operationIndex + Sign.Length;
             int endIndex = input.LastIndexOf(ClosingSign);
@@ -49,9 +49,9 @@ namespace Calculator.Arithmetic.Operations
             return true;
         }
 
-        public List<int> GetOperandsIndexes(int operationIndex)
+        public bool IsOperationCorrect(Input input, int operationIndex)
         {
-            return new List<int> { operationIndex + Sign.Length };
+            return input.IsNextOperandCorrect(operationIndex);
         }
     }
 }

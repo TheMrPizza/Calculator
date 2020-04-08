@@ -29,7 +29,7 @@ namespace Calculator.Parser
                 if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Sign))
                 {
                     IOperation maxMatching = MaxMatchingOperation(i, allOperations);
-                    if (maxMatching == operation)
+                    if (maxMatching.Sign.Length == operation.Sign.Length)
                     {
                         return i;
                     }
@@ -78,6 +78,37 @@ namespace Calculator.Parser
             }
 
             return maxOperation;
+        }
+
+        public bool IsPrevOperandCorrect(int index)
+        {
+            return IsOperand(index - 1);
+        }
+
+        public bool IsNextOperandCorrect(int index)
+        {
+            if (IsOperand(index + 1))
+            {
+                return true;
+            }
+
+            return IsOperand(index + 2);
+        }
+
+        private bool IsOperand(int index)
+        {
+            try
+            {
+                return double.TryParse(Value.Substring(index, 1), out _) || Value[index] == _filterSign;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
         }
 
         private string RemoveSpaces(string input)

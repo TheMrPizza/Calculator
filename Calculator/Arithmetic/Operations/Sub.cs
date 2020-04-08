@@ -16,6 +16,8 @@ namespace Calculator.Arithmetic.Operations
 
         public bool Block(Input input, int operationIndex)
         {
+            return false;
+            // Block if '-' sign is for negative, and not for sub
             if (operationIndex == 0 || !char.IsDigit(input.Value[operationIndex - 1]))
             {
                 input.Block(operationIndex, operationIndex);

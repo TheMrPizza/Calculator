@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Calculator.Parser;
 
 namespace Calculator.Arithmetic.Operations
 {
@@ -10,6 +10,6 @@ namespace Calculator.Arithmetic.Operations
 
         Expression Parse(string input, int operationIndex);
 
-        List<int> GetOperandsIndexes(int operationIndex);
+        bool IsOperationCorrect(Input input, int operationIndex);
     }
 }
