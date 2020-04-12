@@ -48,14 +48,12 @@
     <Compile Include="Arithmetic\Notations\PrefixNotation.cs" />
     <Compile Include="Arithmetic\Operations\Abs.cs" />
     <Compile Include="Arithmetic\Operations\Add.cs" />
-    <Compile Include="Arithmetic\BinaryOperationBase.cs" />
     <Compile Include="Arithmetic\Operations\Div.cs" />
     <Compile Include="Arithmetic\IBlockable.cs" />
     <Compile Include="Arithmetic\Operations\Mul.cs" />
     <Compile Include="Arithmetic\Operations\Negation.cs" />
     <Compile Include="Arithmetic\Operations\Pow.cs" />
     <Compile Include="Arithmetic\Operations\Sub.cs" />
-    <Compile Include="Arithmetic\UnaryOperationBase.cs" />
     <Compile Include="Parser\Input.cs" />
     <Compile Include="Parser\InputUtils.cs" />
     <Compile Include="Solver\BasicSolver.cs" />
