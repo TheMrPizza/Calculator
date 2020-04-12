@@ -1,5 +1,4 @@
-﻿using Calculator.Arithmetic.Operations;
-using Calculator.Parser;
+﻿using Calculator.Parser;
 
 namespace Calculator.Arithmetic.Notations
 {

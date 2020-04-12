@@ -1,5 +1,5 @@
-﻿using Calculator.Arithmetic.Notations;
-using System;
+﻿using System;
+using Calculator.Arithmetic.Notations;
 
 namespace Calculator.Arithmetic.Operations
 {
