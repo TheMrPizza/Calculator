@@ -63,7 +63,7 @@ namespace Calculator.Arithmetic.Notations
                 }
             }
 
-            throw new ParsingException("Closing operation not found");
+            throw new ParsingException("Cannot parse the expression");
         }
     }
 }
