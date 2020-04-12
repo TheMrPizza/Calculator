@@ -3,7 +3,7 @@ using Calculator.Parser;
 
 namespace Calculator.Arithmetic.Operations
 {
-    public abstract class UnaryOperationBase : IOperation, IBlockable
+    public abstract class UnaryOperationBase : IBlockable
     {
         public string Name { get; }
         public string Sign { get; }

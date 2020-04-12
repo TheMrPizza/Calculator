@@ -2,7 +2,7 @@
 
 namespace Calculator.Arithmetic.Operations
 {
-    public abstract class BinaryOperationBase : IOperation
+    public abstract class BinaryOperationBase
     {
         public string Name { get; }
         public string Sign { get; }

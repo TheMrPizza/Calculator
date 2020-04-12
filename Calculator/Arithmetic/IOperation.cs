@@ -1,17 +1,12 @@
-﻿using Calculator.Parser;
+﻿using Calculator.Arithmetic.Notations;
 
 namespace Calculator.Arithmetic.Operations
 {
     public interface IOperation
     {
-        string Name { get; }
-        string Sign { get; }
+        INotation Notation { get; }
         bool IsRTL { get; }
 
         double Operate(double operand1, double operand2);
-
-        Expression Parse(string input, int operationIndex);
-
-        bool IsOperationCorrect(Input input, int operationIndex);
     }
 }

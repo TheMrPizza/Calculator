@@ -58,11 +58,11 @@ namespace Calculator.Parser
             int minIndex = 0;
             for (int i = 0; i < FilteredValue.Length; i++)
             {
-                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
-                    && operation.IsOperationCorrect(this, i))
+                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Notation.Sign)
+                    && operation.Notation.IsCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
-                    if (operation.Sign.Length == maxLength)
+                    if (operation.Notation.Sign.Length == maxLength)
                     {
                         return i;
                     }
@@ -79,11 +79,11 @@ namespace Calculator.Parser
             int maxIndex = FilteredValue.Length;
             for (int i = FilteredValue.Length; i >= 0; i--)
             {
-                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
-                    && operation.IsOperationCorrect(this, i))
+                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Notation.Sign)
+                    && operation.Notation.IsCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
-                    if (operation.Sign.Length == maxLength)
+                    if (operation.Notation.Sign.Length == maxLength)
                     {
                         return i;
                     }
@@ -100,11 +100,11 @@ namespace Calculator.Parser
             int maxLength = 0;
             for (int i = 0; i < allOperations.Count; i++)
             {
-                if (FilteredValue.Substring(index).StartsWith(allOperations[i].Sign))
+                if (FilteredValue.Substring(index).StartsWith(allOperations[i].Notation.Sign))
                 {
-                    if (allOperations[i].Sign.Length > maxLength)
+                    if (allOperations[i].Notation.Sign.Length > maxLength)
                     {
-                        maxLength = allOperations[i].Sign.Length;
+                        maxLength = allOperations[i].Notation.Sign.Length;
                     }
                 }
             }

@@ -1,15 +1,20 @@
-﻿using Calculator.Exceptions;
+﻿using Calculator.Arithmetic.Notations;
+using Calculator.Exceptions;
 
 namespace Calculator.Arithmetic.Operations
 {
-    public class Div : BinaryOperationBase
+    public class Div : IOperation
     {
-        public Div() : base("Div", "/")
-        {
+        public INotation Notation { get; }
+        public bool IsRTL { get; }
 
+        public Div()
+        {
+            Notation = new InfixNotation("/", "Div");
+            IsRTL = false;
         }
 
-        public override double Operate(double operand1, double operand2)
+        public double Operate(double operand1, double operand2)
         {
             if (operand2 == 0)
             {

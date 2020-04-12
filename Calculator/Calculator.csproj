@@ -42,6 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arithmetic\ArithmeticUnit.cs" />
+    <Compile Include="Arithmetic\Notations\FunctionalNotation.cs" />
+    <Compile Include="Arithmetic\Notations\InfixNotation.cs" />
+    <Compile Include="Arithmetic\Notations\INotation.cs" />
+    <Compile Include="Arithmetic\Notations\PrefixNotation.cs" />
     <Compile Include="Arithmetic\Operations\Abs.cs" />
     <Compile Include="Arithmetic\Operations\Add.cs" />
     <Compile Include="Arithmetic\BinaryOperationBase.cs" />

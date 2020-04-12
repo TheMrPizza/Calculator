@@ -21,10 +21,10 @@ namespace Calculator.Parser
             Input = new Input(input);
             foreach (IOperation operation in ArithmeticUnit.Operations)
             {
-                int operationIndex = input.IndexOf(operation.Sign);
+                int operationIndex = input.IndexOf(operation.Notation.Sign);
                 if (operationIndex != -1)
                 {
-                    return SubstringInput(input, operation.Sign, operationIndex);
+                    return SubstringInput(input, operation.Notation.Sign, operationIndex);
                 }
             }
 
