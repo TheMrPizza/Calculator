@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator.Parser
 {
@@ -30,11 +26,17 @@ namespace Calculator.Parser
             return IsOperand(index + 2);
         }
 
+        public string RemoveSpaces(string input)
+        {
+            return input.Replace(" ", string.Empty);
+        }
+
         private bool IsOperand(int index)
         {
             try
             {
-                return double.TryParse(Input.Value.Substring(index, 1), out _) || Input.FilteredValue[index] == Input.FilterSign;
+                return double.TryParse(Input.Value.Substring(index, 1), out _)
+                    || Input.FilteredValue[index] == Input.FilterSign;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -44,11 +46,6 @@ namespace Calculator.Parser
             {
                 return false;
             }
-        }
-
-        public string RemoveSpaces(string input)
-        {
-            return input.Replace(" ", string.Empty);
         }
     }
 }

@@ -30,48 +30,6 @@ namespace Calculator.Parser
             return FindLTR(operation, allOperations);
         }
 
-        public int FindRTL(IOperation operation, List<IOperation> allOperations)
-        {
-            int minIndex = 0;
-            for (int i = 0; i < FilteredValue.Length; i++)
-            {
-                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
-                    && operation.IsOperationCorrect(this, i))
-                {
-                    int maxLength = MaxMatchingOperationLength(i, allOperations);
-                    if (operation.Sign.Length == maxLength)
-                    {
-                        return i;
-                    }
-
-                    minIndex = i + maxLength;
-                }
-            }
-
-            return -1;
-        }
-
-        public int FindLTR(IOperation operation, List<IOperation> allOperations)
-        {
-            int maxIndex = FilteredValue.Length;
-            for (int i = FilteredValue.Length; i >= 0; i--)
-            {
-                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
-                    && operation.IsOperationCorrect(this, i))
-                {
-                    int maxLength = MaxMatchingOperationLength(i, allOperations);
-                    if (operation.Sign.Length == maxLength)
-                    {
-                        return i;
-                    }
-
-                    maxIndex = i - maxLength;
-                }
-            }
-
-            return -1;
-        }
-
         public void Block(int startIndex, int endIndex)
         {
             string start = FilteredValue.Substring(0, startIndex);
@@ -93,6 +51,48 @@ namespace Calculator.Parser
             {
                 throw new ParsingException("Cannot parse the expression");
             }
+        }
+
+        private int FindRTL(IOperation operation, List<IOperation> allOperations)
+        {
+            int minIndex = 0;
+            for (int i = 0; i < FilteredValue.Length; i++)
+            {
+                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
+                    && operation.IsOperationCorrect(this, i))
+                {
+                    int maxLength = MaxMatchingOperationLength(i, allOperations);
+                    if (operation.Sign.Length == maxLength)
+                    {
+                        return i;
+                    }
+
+                    minIndex = i + maxLength;
+                }
+            }
+
+            return -1;
+        }
+
+        private int FindLTR(IOperation operation, List<IOperation> allOperations)
+        {
+            int maxIndex = FilteredValue.Length;
+            for (int i = FilteredValue.Length; i >= 0; i--)
+            {
+                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Sign)
+                    && operation.IsOperationCorrect(this, i))
+                {
+                    int maxLength = MaxMatchingOperationLength(i, allOperations);
+                    if (operation.Sign.Length == maxLength)
+                    {
+                        return i;
+                    }
+
+                    maxIndex = i - maxLength;
+                }
+            }
+
+            return -1;
         }
 
         private int MaxMatchingOperationLength(int index, List<IOperation> allOperations)
