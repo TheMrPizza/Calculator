@@ -1,15 +1,10 @@
 ﻿using System;
+using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
-    public class InputUtils
+    public partial class Input
     {
-        public Input Input { get; }
-
-        public InputUtils(Input input)
-        {
-            Input = input;
-        }
 
         public bool IsPrevOperandCorrect(int index)
         {
@@ -31,12 +26,27 @@ namespace Calculator.Parser
             return input.Replace(" ", string.Empty);
         }
 
+        public void CheckIfNumber()
+        {
+            try
+            {
+                if (double.Parse(Value).ToString() != Value)
+                {
+                    throw new FormatException();
+                }
+            }
+            catch (FormatException)
+            {
+                throw new ParsingException("Cannot parse the expression");
+            }
+        }
+
         private bool IsOperand(int index)
         {
             try
             {
-                return double.TryParse(Input.Value.Substring(index, 1), out _)
-                    || Input.FilteredValue[index] == Input.FilterSign;
+                return double.TryParse(Value.Substring(index, 1), out _)
+                    || _filteredValue[index] == _filterSign;
             }
             catch (ArgumentOutOfRangeException)
             {

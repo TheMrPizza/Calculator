@@ -23,8 +23,8 @@ namespace Calculator.Arithmetic.Notations
 
         public bool IsCorrect(Input input, int operationIndex)
         {
-            return input.Utils.IsPrevOperandCorrect(operationIndex) &&
-                input.Utils.IsNextOperandCorrect(operationIndex + Sign.Length - 1);
+            return input.IsPrevOperandCorrect(operationIndex) &&
+                input.IsNextOperandCorrect(operationIndex + Sign.Length - 1);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Calculator.Arithmetic.Notations
 
         public bool IsCorrect(Input input, int operationIndex)
         {
-            return input.Utils.IsNextOperandCorrect(operationIndex);
+            return input.IsNextOperandCorrect(operationIndex);
         }
     }
 }

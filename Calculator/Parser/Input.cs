@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Calculator.Arithmetic.Operations;
-using Calculator.Exceptions;
 
 namespace Calculator.Parser
 {
-    public class Input
+    public partial class Input
     {
         public string Value { get; }
-        public InputUtils Utils { get; }
-        public string FilteredValue { get; set; }
-        public char FilterSign { get; }
+        private string _filteredValue { get; set; }
+        private char _filterSign { get; }
 
         public Input(string value)
         {
-            Utils = new InputUtils(this);
-            Value = Utils.RemoveSpaces(value);
-            FilteredValue = Value;
-            FilterSign = '\0';
+            Value = RemoveSpaces(value);
+            _filteredValue = Value;
+            _filterSign = '\0';
         }
 
         public int FindOperationIndex(IOperation operation, List<IOperation> allOperations)
@@ -32,33 +28,18 @@ namespace Calculator.Parser
 
         public void Block(int startIndex, int endIndex)
         {
-            string start = FilteredValue.Substring(0, startIndex);
-            string middle = new string(FilterSign, endIndex - startIndex + 1);
-            string end = FilteredValue.Substring(endIndex + 1);
-            FilteredValue = start + middle + end;
-        }
-
-        public void CheckIfNumber()
-        {
-            try
-            {
-                if (double.Parse(Value).ToString() != Value)
-                {
-                    throw new FormatException();
-                }
-            }
-            catch (FormatException)
-            {
-                throw new ParsingException("Cannot parse the expression");
-            }
+            string start = _filteredValue.Substring(0, startIndex);
+            string middle = new string(_filterSign, endIndex - startIndex + 1);
+            string end = _filteredValue.Substring(endIndex + 1);
+            _filteredValue = start + middle + end;
         }
 
         private int FindRTL(IOperation operation, List<IOperation> allOperations)
         {
             int minIndex = 0;
-            for (int i = 0; i < FilteredValue.Length; i++)
+            for (int i = 0; i < _filteredValue.Length; i++)
             {
-                if (i >= minIndex && FilteredValue.Substring(i).StartsWith(operation.Notation.Sign)
+                if (i >= minIndex && _filteredValue.Substring(i).StartsWith(operation.Notation.Sign)
                     && operation.Notation.IsCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
@@ -76,10 +57,10 @@ namespace Calculator.Parser
 
         private int FindLTR(IOperation operation, List<IOperation> allOperations)
         {
-            int maxIndex = FilteredValue.Length;
-            for (int i = FilteredValue.Length; i >= 0; i--)
+            int maxIndex = _filteredValue.Length;
+            for (int i = _filteredValue.Length; i >= 0; i--)
             {
-                if (i <= maxIndex && FilteredValue.Substring(i).StartsWith(operation.Notation.Sign)
+                if (i <= maxIndex && _filteredValue.Substring(i).StartsWith(operation.Notation.Sign)
                     && operation.Notation.IsCorrect(this, i))
                 {
                     int maxLength = MaxMatchingOperationLength(i, allOperations);
@@ -100,7 +81,7 @@ namespace Calculator.Parser
             int maxLength = 0;
             for (int i = 0; i < allOperations.Count; i++)
             {
-                if (FilteredValue.Substring(index).StartsWith(allOperations[i].Notation.Sign))
+                if (_filteredValue.Substring(index).StartsWith(allOperations[i].Notation.Sign))
                 {
                     if (allOperations[i].Notation.Sign.Length > maxLength)
                     {
