@@ -84,7 +84,10 @@ namespace Calculator.Parser
         {
             try
             {
-                double.Parse(Value);
+                if (double.Parse(Value).ToString() != Value)
+                {
+                    throw new FormatException();
+                }
             }
             catch (FormatException)
             {

@@ -10,7 +10,7 @@ namespace Calculator.Arithmetic.Operations
         public bool IsRTL { get; }
         public string ClosingSign { get; }
 
-        public UnaryOperationBase(string name, string sign, string closingSign, bool isRTL=false)
+        public UnaryOperationBase(string name, string sign, string closingSign, bool isRTL=true)
         {
             Name = name;
             Sign = sign;
