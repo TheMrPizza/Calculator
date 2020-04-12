@@ -52,7 +52,7 @@ namespace Calculator.Parser
         {
             if (operation.Notation is IBlockable)
             {
-                if ((operation.Notation as IBlockable).Block(Input, operationIndex))
+                if ((operation.Notation as IBlockable).Block(new TreeParser(this.ArithmeticUnit), Input, operationIndex))
                 {
                     return true;
                 }

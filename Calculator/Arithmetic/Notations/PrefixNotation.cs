@@ -20,7 +20,7 @@ namespace Calculator.Arithmetic.Notations
             return new Expression(Name, null, left);
         }
 
-        public bool Block(Input input, int operationIndex)
+        public bool Block(IParser parser, Input input, int operationIndex)
         {
             if (operationIndex == 0)
             {

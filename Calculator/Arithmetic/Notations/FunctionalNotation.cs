@@ -25,28 +25,45 @@ namespace Calculator.Arithmetic.Notations
             return new Expression(Name, null, new Expression(content));
         }
 
-        public bool Block(Input input, int operationIndex)
+        public bool Block(IParser parser, Input input, int operationIndex)
         {
-            if (operationIndex == 0 && input.Value.LastIndexOf(ClosingSign) == input.Value.Length - 1)
+            int startIndex = operationIndex;
+            int endIndex = FindEndIndex(parser, input, operationIndex);
+            if (startIndex == 0 && endIndex == input.Value.Length - 1)
             {
                 return false;
             }
 
-            int startIndex = operationIndex;
-            int endIndex = input.Value.Substring(startIndex + Sign.Length).IndexOf(ClosingSign);
-            if (endIndex == -1)
-            {
-                throw new ParsingException("Closing operation not found");
-            }
-
-            endIndex += startIndex + Sign.Length;
-            input.Block(startIndex, endIndex);
+            input.Block(operationIndex, endIndex);
             return true;
         }
 
         public bool IsCorrect(Input input, int operationIndex)
         {
             return input.IsNextOperandCorrect(operationIndex);
+        }
+
+        private int FindEndIndex(IParser parser, Input input, int operationIndex)
+        {
+            int startIndex = operationIndex + Sign.Length;
+            for (int i = startIndex; i < input.Value.Length; i++)
+            {
+                if (input.Value.Substring(i).StartsWith(ClosingSign))
+                {
+                    try
+                    {
+                        string content = input.Value.Substring(startIndex, i - startIndex);
+                        parser.Parse(content);
+                        return i + ClosingSign.Length - 1;
+                    }
+                    catch (ParsingException)
+                    {
+                        continue;
+                    }
+                }
+            }
+
+            throw new ParsingException("Closing operation not found");
         }
     }
 }

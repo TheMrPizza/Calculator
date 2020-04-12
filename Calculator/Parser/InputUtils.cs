@@ -13,12 +13,7 @@ namespace Calculator.Parser
 
         public bool IsNextOperandCorrect(int index)
         {
-            if (IsOperand(index + 1))
-            {
-                return true;
-            }
-
-            return IsOperand(index + 2);
+            return IsOperand(index + 1) || IsOperand(index + 2);
         }
 
         public string RemoveSpaces(string input)
