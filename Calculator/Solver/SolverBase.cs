@@ -17,7 +17,7 @@ namespace Calculator.Solver
 
         public IOperation GetOperationByName(string name)
         {
-            return ArithmeticUnit.Operations.Where(operation => operation.Name == name).First();
+            return ArithmeticUnit.Operations.Where(operation => operation.Notation.Name == name).First();
         }
     }
 }

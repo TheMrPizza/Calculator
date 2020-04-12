@@ -1,15 +1,20 @@
 ﻿using System;
+using Calculator.Arithmetic.Notations;
 
 namespace Calculator.Arithmetic.Operations
 {
-    public class Pow : BinaryOperationBase
+    public class Pow : IOperation
     {
-        public Pow() : base("Pow", "**", true)
-        {
+        public INotation Notation { get; }
+        public bool IsRTL { get; }
 
+        public Pow()
+        {
+            Notation = new InfixNotation("**", "Pow");
+            IsRTL = true;
         }
 
-        public override double Operate(double operand1, double operand2)
+        public double Operate(double operand1, double operand2)
         {
             return Math.Pow(operand1, operand2);
         }

@@ -4,6 +4,6 @@ namespace Calculator.Arithmetic.Operations
 {
     public interface IBlockable
     {
-        bool Block(Input input, int operationIndex);
+        bool Block(IParser parser, Input input, int operationIndex);
     }
 }

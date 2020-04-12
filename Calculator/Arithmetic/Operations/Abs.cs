@@ -1,15 +1,20 @@
 ﻿using System;
+using Calculator.Arithmetic.Notations;
 
 namespace Calculator.Arithmetic.Operations
 {
-    public class Abs : UnaryOperationBase
+    public class Abs : IOperation
     {
-        public Abs() : base("Abs", "|", "|")
-        {
+        public INotation Notation { get; }
+        public bool IsRTL { get; }
 
+        public Abs()
+        {
+            Notation = new FunctionalNotation("|", "|", "Abs");
+            IsRTL = true;
         }
 
-        public override double Operate(double operand1, double operand2)
+        public double Operate(double operand1, double operand2)
         {
             return Math.Abs(operand1);
         }

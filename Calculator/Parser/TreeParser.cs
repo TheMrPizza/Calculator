@@ -42,7 +42,7 @@ namespace Calculator.Parser
 
         public Expression ParseOperation(IOperation operation, int operationIndex)
         {
-            Expression exp = operation.Parse(Input.Value, operationIndex);
+            Expression exp = operation.Notation.Parse(Input.Value, operationIndex);
             exp.Right = exp.Right == null ? null : Parse(exp.Right.Value);
             exp.Left = exp.Left == null ? null : Parse(exp.Left.Value);
             return exp;
@@ -50,9 +50,9 @@ namespace Calculator.Parser
 
         public bool TryBlock(IOperation operation, int operationIndex)
         {
-            if (operation is IBlockable)
+            if (operation.Notation is IBlockable)
             {
-                if ((operation as IBlockable).Block(Input, operationIndex))
+                if ((operation.Notation as IBlockable).Block(new TreeParser(this.ArithmeticUnit), Input, operationIndex))
                 {
                     return true;
                 }
