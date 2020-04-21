@@ -1,4 +1,5 @@
 ﻿using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 
 namespace Calculator.Solver
 {
@@ -11,10 +12,10 @@ namespace Calculator.Solver
 
         public override double Solve(Expression exp)
         {
-            Operation operation = GetOperationBySign(exp.Value);
+            IOperation operation = GetOperationByName(exp.Value);
             double num1 = double.Parse(exp.Left.Value);
             double num2 = double.Parse(exp.Right.Value);
-            return operation.Func(num1, num2);
+            return operation.Operate(num1, num2);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 
 namespace Calculator.Solver
 {
@@ -13,9 +14,10 @@ namespace Calculator.Solver
         }
 
         public abstract double Solve(Expression exp);
-        public Operation GetOperationBySign(string sign)
+
+        public IOperation GetOperationByName(string name)
         {
-            return ArithmeticUnit.Operations.Where(operation => operation.Sign == sign).First();
+            return ArithmeticUnit.Operations.Where(operation => operation.Notation.Name == name).First();
         }
     }
 }

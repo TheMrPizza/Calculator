@@ -1,56 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using Calculator.Arithmetic;
-using Calculator.Exceptions;
+﻿using Calculator.Arithmetic;
+using Calculator.Arithmetic.Operations;
 
 namespace Calculator.Parser
 {
     public class TreeParser : IParser
     {
-        public Expression Parse(string input, List<Operation> operations)
+        public Input Input { get; set; }
+        public ArithmeticUnit ArithmeticUnit { get; set; }
+
+        public TreeParser(ArithmeticUnit arithmeticUnit)
         {
-            foreach (Operation operation in operations)
+            Input = null;
+            ArithmeticUnit = arithmeticUnit;
+        }
+
+        public Expression Parse(string input)
+        {
+            Input = new Input(input);
+            return HandleInput();
+        }
+
+        public Expression HandleInput()
+        {
+            foreach (IOperation operation in ArithmeticUnit.Operations)
             {
-                int operationIndex = input.LastIndexOf(operation.Sign);
-                if (operationIndex != -1 && IsOperation(input, operationIndex))
+                int operationIndex = Input.FindOperationIndex(operation, ArithmeticUnit.Operations);
+                if (operationIndex != -1)
                 {
-                    Expression right = Parse(input.Substring(operationIndex + operation.Sign.Length), operations);
-                    Expression left = Parse(input.Substring(0, operationIndex), operations);
-                    return new Expression(operation.Sign, right, left);
+                    if (TryBlock(operation, operationIndex))
+                    {
+                        return HandleInput();
+                    }
+
+                    return ParseOperation(operation, operationIndex);
                 }
             }
 
-            input = input.Replace(" ", string.Empty);
-            CheckIfNumber(input);
-            return new Expression(input);
+            Input.CheckIfNumber();
+            return new Expression(Input.Value);
         }
 
-        private void CheckIfNumber(string input)
+        public Expression ParseOperation(IOperation operation, int operationIndex)
         {
-            try
-            {
-                double.Parse(input);
-            }
-            catch (FormatException)
-            {
-                throw new ParsingException("Cannot parse the expression");
-            }
+            Expression exp = operation.Notation.Parse(Input.Value, operationIndex);
+            exp.Right = exp.Right == null ? null : Parse(exp.Right.Value);
+            exp.Left = exp.Left == null ? null : Parse(exp.Left.Value);
+            return exp;
         }
 
-        private bool IsOperation(string input, int operationIndex)
+        public bool TryBlock(IOperation operation, int operationIndex)
         {
-            input = input.Replace(" ", string.Empty);
-            if (input[operationIndex] == '-')
+            if (operation.Notation is IBlockable)
             {
-                if (operationIndex == 0)
+                if ((operation.Notation as IBlockable).Block(new TreeParser(this.ArithmeticUnit), Input, operationIndex))
                 {
-                    return false;
+                    return true;
                 }
-
-                return char.IsDigit(input[operationIndex - 1]);
             }
 
-            return true;
+            return false;
         }
     }
 }
